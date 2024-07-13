@@ -11,7 +11,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
-import os, dotenv
+import os
+import dotenv
 
 dotenv.load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -22,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = str(os.getenv('DJ_KEY'))
+SECRET_KEY = str(os.getenv('DJ_SECRET_KEY'))
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -33,13 +34,16 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'webpack_loader',
+    'corsheaders',
+    'rest_framework',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'users'
+    'account'
 ]
 
 MIDDLEWARE = [
@@ -75,17 +79,16 @@ WSGI_APPLICATION = 'project.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-
+# 'ENGINE': 'django.db.backends.sqlite3',
+        # 'NAME': BASE_DIR / 'db.sqlite3',
 DATABASES = {
     'default': {
-        # 'ENGINE': 'django.db.backends.sqlite3',
-        # 'NAME': BASE_DIR / 'db.sqlite3',
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('POSTGRES_DB', 'users'),
-        'USER': os.getenv('POSTGRES_USER', 'postgres'),
-        'PASSWORD': os.getenv('POSTGRES_PASSWORD', '123'),
-        'HOST': os.getenv('POSTGRES_HOST', '127.0.0.1'),
-        'PORT': os.getenv('POSTGRES_PORT', '5432')
+        'NAME': str(os.getenv('POSTGRES_DB', 'account')),
+        'USER': str(os.getenv('POSTGRES_USER', 'postgres')),
+        'PASSWORD': str(os.getenv('POSTGRES_PASSWORD', '123')),
+        'HOST': str(os.getenv('POSTGRES_HOST', 'localhost')),
+        'PORT': str(os.getenv('POSTGRES_PORT', '5432')),
     }
 }
 
@@ -123,7 +126,7 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
-STATIC_ROOT=os.path.join(BASE_DIR, 'users/static')
+STATIC_ROOT=os.path.join(BASE_DIR, 'account/static')
 STATIC_URL = 'static/'
 
 # Default primary key field type
@@ -134,7 +137,7 @@ DEFAULT_CHARSET = 'utf-8'
 
 # WEBPACK
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'users'),
+    os.path.join(BASE_DIR, 'account'),
 )
 
 # WEBPACK_LOADER ={
