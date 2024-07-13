@@ -5,6 +5,7 @@ from .models import AccountUsersModel
 
 
 class AccountUsersSiteAdmin(AdminSite):
+  login_template = 'users/authorization.html'
   site_header = 'User Account'
   site_title = 'User Account Portal'
   index_title = 'Welcom to the User Account Portal'
@@ -12,3 +13,4 @@ class AccountUsersSiteAdmin(AdminSite):
   
 account_users_site = AccountUsersSiteAdmin(name = 'account_user')
 account_users_site.register(AccountUsersModel)
+
