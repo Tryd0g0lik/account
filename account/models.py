@@ -1,3 +1,4 @@
+from django.contrib import admin
 from django.core.validators import EmailValidator
 from django.db import models
 from django.core import validators
@@ -83,4 +84,8 @@ class UsersRegistrModel(models.Model):
   datetime = models.DateTimeField(auto_now_add = True)
   
   def __str__(self):
-    return f"New user {self.username} was added of: {self.datetime}"
+    return f"There user {self.username} was added of: {self.datetime}"
+  
+  @admin.display
+  def password_display(self):
+    return "*****"
