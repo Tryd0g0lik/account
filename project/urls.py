@@ -18,12 +18,13 @@ from django.contrib import admin
 from django.urls import path, include
 from account.admin import account_users_site
 from .rest_routers import router
+from account.views import form_authorisation_onPage
 
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('account/', account_users_site.urls),
+    path('account/', form_authorisation_onPage, name='authorization'), # account_users_site.urls),
     path('api/v1/', include(router.urls))
 ]
 

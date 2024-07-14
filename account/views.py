@@ -1,8 +1,20 @@
+from rest_framework.renderers import JSONRenderer
+from rest_framework.response import Response
+from  rest_framework import status
+from django.shortcuts import render
 from rest_framework.viewsets import ModelViewSet
+
+from .forms import CustomAuthenticationForm
 from .models import UsersRegistrModel
 from .serializetors import Users_serializers
 
-
+def form_authorisation_onPage(request):
+    template_name_ = 'users/registration.html'
+    authentication_form = CustomAuthenticationForm()
+    context_ = { 'form': authentication_form }
+    # json_ = JSONRenderer().render( context_ )
+    # return Response( data = json_, status = status.HTTP_200_OK )
+    return render(request, template_name = template_name_, context=context_)
 # Create your views here.
 # class CustomAuthenticationView(LoginView):
 #   template_name = 'users/authorization.html'
@@ -14,3 +26,6 @@ from .serializetors import Users_serializers
 class UsersAutorizationViews(ModelViewSet):
     queryset = UsersRegistrModel.objects.all()
     serializer_class = Users_serializers
+    
+    
+        
