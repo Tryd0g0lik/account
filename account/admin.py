@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.admin import AdminSite
-from .models import AccountUsersModel
+from .models import UsersRegistrModel
 # Register your models here.
 
 
@@ -12,5 +12,5 @@ class AccountUsersSiteAdmin(AdminSite):
   
   
 account_users_site = AccountUsersSiteAdmin(name = 'account_user')
-account_users_site.register(AccountUsersModel)
+account_users_site.register(UsersRegistrModel)
 

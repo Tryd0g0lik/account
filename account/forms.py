@@ -6,8 +6,8 @@ from .models import UsersRegistrModel
 
 class CustomAuthenticationForm(forms.ModelForm, AuthenticationForm):
   class Metta:
-	model = UsersRegistrModel
-	fields = ['username', 'password', 'repassword']
-	
+    model = UsersRegistrModel
+    fields = ['username', 'password', 'repassword']
+    
 
   

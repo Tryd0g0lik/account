@@ -13,15 +13,15 @@ from .models import UsersRegistrModel
 #   template_name = 'users/authorization.html'
 #   authentication_form = CustomAuthenticationForm
 #   def from_valid(self, form):
-# 	# Add your authentication logic
-# 	return super().form_valid(form)
+#     # Add your authentication logic
+#     return super().form_valid(form)
 
 class UsersAutorizationViews(ModelViewSet):
-	queryset = UsersRegistrModel.objects.all()
-	serializers_class = CustomAuthenticationForm
-	
-	def create(self, request, *args, **kwargs):
-	  serializer = CustomAuthenticationForm(data = request.data)
-	  if serializer.is_valid():
-		return Response(serializer.data, status = status.HTTP_201_CREATED)
-	  return Response( serializer.errors, status = status.HTTP_400_BAD_REQUEST)
+    queryset = UsersRegistrModel.objects.all()
+    serializers_class = CustomAuthenticationForm
+    
+    def create(self, request, *args, **kwargs):
+      serializer = CustomAuthenticationForm(data = request.data)
+      if serializer.is_valid():
+        return Response(serializer.data, status = status.HTTP_201_CREATED)
+      return Response( serializer.errors, status = status.HTTP_400_BAD_REQUEST)

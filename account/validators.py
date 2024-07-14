@@ -9,11 +9,11 @@ def no_special_chars_validators(value:str):
   '''
   
   for char in value:
-	if unicodedata.category(char)[0] !=r'/[A-Z_-]/':
-	  raise ValidationError(
-		'%(value)s contains invalid characters',
-		params = { 'value': value },
-	  )
+    if unicodedata.category(char)[0] !=r'/[A-Z_-]/':
+      raise ValidationError(
+        '%(value)s contains invalid characters',
+        params = { 'value': value },
+      )
   return True
 
 def min_length_validators(value:str):
@@ -23,13 +23,13 @@ def min_length_validators(value:str):
   :return: True or Error
   '''
   if type(value) != str:
-	raise ValidationError(
-	  '%(value) contains invalid type synbols',
-	  params = {'value': value}
-	)
+    raise ValidationError(
+      '%(value) contains invalid type synbols',
+      params = {'value': value}
+    )
   if len(value) < 3:
-	raise ValidationError(
-	  '%(value) contains invalid length. Min length is 3 symbols',
-	  params = {'value':value}
-	)
+    raise ValidationError(
+      '%(value) contains invalid length. Min length is 3 symbols',
+      params = {'value':value}
+    )
   return True
