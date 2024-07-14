@@ -2,16 +2,28 @@
 <!DOCTYPE html>
 <html lang = "ru">
 {% extends "admin/login.html" %}
+{% load static %}
+{% load render_bundle from webpack_loader %}
+
 <head>
-    <meta charset = "UTF-8">
-    <title>The User Account registration</title>
+  {% block head %}
+		{{ block.super }}
+		<title>{% block title %}{{title}}{% endblock %}</title>
+	{% endblock %}
+
+	{% block extrahead %}
+		{{ block.super }}
+		<link href="{% static 'account/css/' %}{{account_styles}}" rel="stylesheet" />
+	{% endblock %}
+
 </head>
 <body>
 {% block content %}
-
+	<form id="registr">
     {% csrf_token %}
     {{ form }}
     <button type="submit">Submit Test</button>
+	</form>
 {% endblock %}
 
 </body>

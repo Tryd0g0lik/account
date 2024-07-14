@@ -140,25 +140,25 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'account'),
 )
 
-# WEBPACK_LOADER ={
-#     'DEFAULT':{
-#         'CACHE':not DEBUG,
-#         'BUNDLE_DIR_NAME': 'spacex/interface/dist/',
-#         'STATS_FILE': os.path.join(BASE_DIR, 'webpack-stats.json'),
-#         'POLL_INTERVAL':0.1,
-#         'TIMEOUT': None,
-#         'TEST': {
-#             'NAME': 'test_spacex',
-#         },
-#         'IGNORE': [
-#             '.+\.map$'
-#         ],
-#         'LOADER_CLASS': 'webpack_loader.loader.WebpackLoader',
-#     }
-# }
-#
-# if not DEBUG:
-#     WEBPACK_LOADER['DEFAULT'].update({
-#         'BUNDLE_DIR_NAME': 'dist/',
-#         'STATS_FILE': os.path.join(BASE_DIR, 'webpack-stats-prod.json')
-#     })
+WEBPACK_LOADER ={
+    'DEFAULT':{
+        'CACHE':not DEBUG,
+        'BUNDLE_DIR_NAME': 'spacex/interface/dist/',
+        'STATS_FILE': os.path.join(BASE_DIR, 'webpack-stats.json'),
+        'POLL_INTERVAL':0.1,
+        'TIMEOUT': None,
+        'TEST': {
+            'NAME': 'test_spacex',
+        },
+        'IGNORE': [
+            '.+\.map$'
+        ],
+        'LOADER_CLASS': 'webpack_loader.loader.WebpackLoader',
+    }
+}
+
+if not DEBUG:
+    WEBPACK_LOADER['DEFAULT'].update({
+        'BUNDLE_DIR_NAME': 'dist/',
+        'STATS_FILE': os.path.join(BASE_DIR, 'webpack-stats-prod.json')
+    })
