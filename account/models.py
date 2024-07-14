@@ -11,7 +11,7 @@ passw_min_quantity_len: int = 10 # This's min int length of password
 
 def update_min_length_validators(value:str):
   kwarg = {'text': value, 'quantity': passw_min_quantity_len }
-  response = decorators_min_length_validators(min_length_validators, kwarg);
+  response = decorators_min_length_validators(min_length_validators);
   return response
 
 class UsersRegistrModel(models.Model):
@@ -21,7 +21,7 @@ class UsersRegistrModel(models.Model):
    Min. = `passw_min_quantity_len`.
    Max. = 30
   '''
-
+  
   name_max_quantity: int = 30
   name_min_quantity = 3 # min quantity
   username = models.CharField(
@@ -78,7 +78,7 @@ class UsersRegistrModel(models.Model):
     ]
   )
   
-  datetime = models.DateTimeField()
+  datetime = models.DateTimeField(auto_now_add = True)
   
   def __str__(self):
-    return f"New user {self.username} was added"
+    return f"New user {self.username} was added of: {self.datetime}"

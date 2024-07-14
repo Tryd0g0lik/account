@@ -1,5 +1,6 @@
 from django.core.exceptions import ValidationError
 import unicodedata
+import re
 
 def no_special_chars_validators(value:str):
   '''
@@ -9,7 +10,9 @@ def no_special_chars_validators(value:str):
   '''
   
   for char in value:
-    if unicodedata.category(char)[0] !=r'/[A-Z_-]/':
+    match = re.search(r'[A-Za-z_-]', char)
+    # print(f"[VAL]:{char} /{match}/ {False if match != None else True}")
+    if False if match != None else True:
       raise ValidationError(
         '%(value)s contains invalid characters',
         params = { 'value': value },
