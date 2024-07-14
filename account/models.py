@@ -16,10 +16,12 @@ def update_min_length_validators(value:str):
 
 class UsersRegistrModel(models.Model):
   '''
+  TODO:
   :param password: do not has a '"%}][{ and more symbol \
    which not has to the unicode.
    Min. = `passw_min_quantity_len`.
    Max. = 30
+   
   '''
   
   name_max_quantity: int = 30
