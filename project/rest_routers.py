@@ -5,4 +5,4 @@ from account.views import UsersAutorizationViews
 router = DefaultRouter()
 
 
-router.register(r'make', UsersAutorizationViews, basename='register')
+router.register(r'accounts', UsersAutorizationViews, basename='register')

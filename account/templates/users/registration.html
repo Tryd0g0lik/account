@@ -14,6 +14,7 @@
 	{% block extrahead %}
 		{{ block.super }}
 		<link href="{% static 'account/css/' %}{{account_styles}}" rel="stylesheet" />
+		<script src="{% static 'account/javascripts/' %}{{account_js}}"></script>
 	{% endblock %}
 
 </head>
@@ -22,7 +23,7 @@
 	<form id="registr">
     {% csrf_token %}
     {{ form }}
-    <button type="submit">Submit Test</button>
+    <button type="submit">Зарегистрироваться</button>
 	</form>
 {% endblock %}
 

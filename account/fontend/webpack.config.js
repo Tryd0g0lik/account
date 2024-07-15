@@ -84,6 +84,12 @@ module.exports = {
 
 
   plugins: [
+    // new webpack.DefinePlugin({
+    //   'process.env.APP_SERVER_PORT': JSON.stringify(process.env.APP_SERVER_PORT),
+    //   'process.env.APP_SERVER_HOST': JSON.stringify(process.env.APP_SERVER_HOST),
+    //   'process.env.APP_ACCOUNTS_PATHNAME': JSON.stringify(process.env.APP_ACCOUNTS_PATHNAME),
+    // }),
+    // new Dotenv(),
     new TsconfigPathsPlugin(),
     new BundleTracker({
       path: path.join(__dirname, 'src/bundles'),
@@ -132,7 +138,7 @@ module.exports = {
     compress: true,
     historyApiFallback: true,
     open: true, // Автоматическое открытие браузера
-    // port: 8080
+    port: process.env.APP_SERVER_PORT ||'8000'
   },
 
   resolve: {
@@ -144,6 +150,7 @@ module.exports = {
     ],
 
     alias: {
+      '@cookies':path.resolve(__dirname, 'src/scripts/cookies.ts')
     }
   },
 

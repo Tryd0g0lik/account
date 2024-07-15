@@ -27,18 +27,18 @@
     "moduleResolution": "node",
     "baseUrl": ".",
     "paths": {
-      "@Websocket": [
-        "src/scripts/websockets/index.ts"
+      "@cookies": [
+        "src/scripts/cookies.ts"
       ],
-      "@Interfaces": [
-        "src/interface.ts"
-      ],
-      "@htmlTemplates/*": [
-        "src/scripts/templates/*"
-      ],
-      "@Service/*": [
-        "src/scripts/chat/*"
-      ]
+      // "@Interfaces": [
+      //   "src/interface.ts"
+      // ],
+      // "@htmlTemplates/*": [
+      //   "src/scripts/templates/*"
+      // ],
+      // "@Service/*": [
+      //   "src/scripts/chat/*"
+      // ]
     }
   },
   "exclude": [
