@@ -6,6 +6,6 @@ export const APP_ACCOUNTS_PATHNAME = '/api/v1/accounts/'
 
 // форма регистрации аккаунта
 const pHtml = document.createElement('p');
-pHtml.className = 'helptext';
+pHtml.className = 'attention';
 pHtml.innerText = 'пользователь с таким email уже существует.'
 export const APP_INFO_FORM_REGIST_USER = pHtml;

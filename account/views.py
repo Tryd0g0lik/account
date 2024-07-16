@@ -11,7 +11,8 @@ from rest_framework.viewsets import ModelViewSet
 import os
 import json
 from .admin import account_users_site
-from .forms import CustomAuthenticationForm
+
+from .forms import CustomAuthorisationForm, CastomAuthenticationForm
 from .interfaces import CustomAuthBackend as CAB
 from .models import UsersRegistrModel
 from .serializetors import Users_serializers
@@ -24,7 +25,7 @@ def form_authorisation_onPage(request):
     template_name_ = 'users/registration.html'
     if request.method != 'GET':
         return
-    authentication_form = CustomAuthenticationForm()
+    authentication_form = CustomAuthorisationForm()
     BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     file_static_css = os.listdir(os.path.join(BASE_DIR, 'account\\static\\account\\css'))[-1]
     file_static_js = os.listdir(os.path.join(BASE_DIR, 'account\\static\\account\\javascripts'))[-1]
@@ -49,27 +50,40 @@ def rubrics(reguest):
 		else:
 				return redirect('login')
 def user_authirization(request, *args, **kwargs):
-		# object_list = UsersRegistrModel.objects.filter(pk=kwargs['id'])
+		'''
+		TODO: There will be checking user into the td by id.
+			If it not founded was, returns a status=400, and text "User not founded".
+		:param request:
+		:param args:
+		:param kwargs: {id: < int:number >}
+		:return: redirect to the page form authorisation.
+		'''
 		cab = CAB()
+		
 		response = cab.authenticate(request=request, kwargs=kwargs)
 		user_obj_list = response if type(response) != bool else []
 		if len(user_obj_list) <= 0:
 				return HttpResponse(content = "User not founded", status=400)
 		
-		# render(request, template_name = template_name_, context=context_)
-		# login(user_obj_list[0])
     # return render(request, account_users_site)
 		# return  redirect_to_login('profile/<int:id>/', )
     # return  HttpResponse(headers = object_dict, status = 200)
-
+		forms = CastomAuthenticationForm()
+		BASE_DIR = os.path.dirname( os.path.dirname( os.path.abspath( __file__ ) ) )
+		file_static_css = os.listdir( os.path.join( BASE_DIR, 'account\\static\\account\\css' ) )[-1]
+		file_static_js = os.listdir( os.path.join( BASE_DIR, 'account\\static\\account\\javascripts' ) )[-1]
+		# "email":user_obj_list[0].email,
+		# "username":user_obj_list[0].username,
 		context = {
-				"email":user_obj_list[0].email,
-				"username":user_obj_list[0].username
+				'title': 'The User Account registration',
+				'account_styles': file_static_css,
+				'account_js': file_static_js,
+				"form":forms
 		}
 		return render(request, template_name = 'users/registration.html', context = context)
 class CustomAuthenticationView(LoginView):
   template_name = 'users/authorization.html'
-  authentication_form = CustomAuthenticationForm
+  authentication_form = CustomAuthorisationForm
   def from_valid(self, form):
     # Add your authentication logic
     return super().form_valid(form)

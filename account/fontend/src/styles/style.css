@@ -1,6 +1,16 @@
-#registr label{
+#outhor label,
+#outhor button,
+#outhor label,
+#outhor button{
   display: block;
 }
-.helptext{
+.attention{
   color: #ef9e9ee3;
+}
+
+#outhor button, 
+outhor button{
+  width: 161px;
+  min-height: 29px;
+  max-height: 29px;
 }

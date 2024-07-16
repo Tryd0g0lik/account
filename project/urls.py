@@ -27,7 +27,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('account/', form_authorisation_onPage, name='account'), # account_users_site.urls),
     path('profile/<int:id>/', user_authirization, name='profile'), # account_users_site.urls),
-    # path('profile/', register, name='profile'), # account_users_site.urls),
+    # path('profile/page/', register, name='profile'), # account_users_site.urls),
     # path('profile/', LogoutView.as_view(), name='profile' ), # next_page='account:authorization'
     path('api/v1/', include(router.urls)) # ,  namespace='accountApi'
 ]

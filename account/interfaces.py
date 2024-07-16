@@ -16,7 +16,6 @@ class CustomAuthBackend(BaseBackend):
 						if len(list(user_obj_list)) <= 0:
 								return False
 						
-						# if user[0].check_password(password):
 						return user_obj_list
 				except Exception as e:
 						print(f'[authenticate]: Error {e}')

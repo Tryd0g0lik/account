@@ -12,5 +12,5 @@ const handlerLoadPage = (): void => {
   // }, 300);
 };
 
-document.removeEventListener('DOMContentLoaded', handlerLoadPage);
+// document.removeEventListener('DOMContentLoaded', handlerLoadPage);
 document.addEventListener('DOMContentLoaded', handlerLoadPage);

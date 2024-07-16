@@ -30,6 +30,15 @@
       "@cookies": [
         "src/scripts/cookies.ts"
       ],
+      "@interfaces": [
+        "src/scripts/interfaces.ts"
+      ],
+      "@Validaors/*": [
+        "src/scripts/Validators"
+      ],
+      "@Postman": [
+        "src/scripts/oop/Postman/index.ts"
+      ]
       // "@Interfaces": [
       //   "src/interface.ts"
       // ],
