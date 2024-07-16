@@ -140,6 +140,7 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'account'),
 )
 
+# webpack
 WEBPACK_LOADER ={
     'DEFAULT':{
         'CACHE':not DEBUG,
@@ -162,3 +163,25 @@ if not DEBUG:
         'BUNDLE_DIR_NAME': 'dist/',
         'STATS_FILE': os.path.join(BASE_DIR, 'webpack-stats-prod.json')
     })
+
+# самописная авторизация
+# https://docs.djangoproject.com/en/5.0/ref/settings/#auth-user-model
+AUTH_USER_MODEL = 'account.UsersRegistrModel'
+# https://docs.djangoproject.com/en/5.0/ref/settings/#logout-redirect-url
+LOGOUT_REDIRECT_URL = os.getenv('APP_LOGIN_REDIRECT_URL', '')
+
+AUTHENTICATION_BACKENDS = [
+    'account.interfaces.CustomAuthBackend',
+]
+PASSWORD_HASHERS = [
+    'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
+    'django.contrib.auth.hashers.PBKDF2PasswordHasher',
+    'django.contrib.auth.hashers.Argon2PasswordHasher',
+]
+
+
+# куда переходим после не успешной авторизации
+LOGIN_URL = os.getenv('APP_LOGIN_URL', '')
+
+# куда переходим после авторизации
+LOGIN_REDIRECT_URL = os.getenv('APP_LOGIN_REDIRECT_URL', '') # 'account:index'

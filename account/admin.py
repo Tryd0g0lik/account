@@ -11,6 +11,6 @@ class AccountUsersSiteAdmin(AdminSite):
   index_title = 'Welcom to the User Account Portal'
   
   
-account_users_site = AccountUsersSiteAdmin(name = 'account_user')
+account_users_site = AccountUsersSiteAdmin() # name='account_user'
 account_users_site.register(UsersRegistrModel)
 

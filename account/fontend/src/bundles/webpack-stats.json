@@ -5,15 +5,15 @@
       "name": "../css/style.css",
       "path": "E:\\OpenServer\\domains\\t-electroniks\\account\\static\\account\\css\\style.css"
     },
-    "main-main-ebadc5d373001ce183dc.js": {
-      "name": "main-main-ebadc5d373001ce183dc.js",
-      "path": "E:\\OpenServer\\domains\\t-electroniks\\account\\static\\account\\javascripts\\main-main-ebadc5d373001ce183dc.js"
+    "main-main-d3bb54d54feeece8e719.js": {
+      "name": "main-main-d3bb54d54feeece8e719.js",
+      "path": "E:\\OpenServer\\domains\\t-electroniks\\account\\static\\account\\javascripts\\main-main-d3bb54d54feeece8e719.js"
     }
   },
   "chunks": {
     "main": [
       "../css/style.css",
-      "main-main-ebadc5d373001ce183dc.js"
+      "main-main-d3bb54d54feeece8e719.js"
     ]
   }
 }

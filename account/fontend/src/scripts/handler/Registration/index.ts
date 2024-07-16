@@ -1,6 +1,6 @@
 import getCookie from '@cookies';
 
-import { APP_SERVER_HOST, APP_SERVER_PORT, APP_ACCOUNTS_PATHNAME } from '../../env';
+import { APP_SERVER_HOST, APP_SERVER_PORT, APP_ACCOUNTS_PATHNAME, APP_INFO_FORM_REGIST_USER } from '../../env';
 // const dotenv = require('dotenv');
 // require(dotenv).config();
 export default async function handlerRegistration(e: MouseEvent): Promise<boolean> {
@@ -14,6 +14,14 @@ export default async function handlerRegistration(e: MouseEvent): Promise<boolea
           !(target.innerText).includes('Зарегистрироваться'))))) {
     return false;
   }
+
+  // There data of forms will geting
+  const formHtml = target.parentElement as HTMLFormElement;
+  const usernameForms = formHtml.querySelector('input[name="username"]') as HTMLInputElement;
+  const passwordForms = formHtml.querySelector('input[name="password"]') as HTMLInputElement;
+  const repasswordForms = formHtml.querySelector('input[name="repassword"]') as HTMLInputElement;
+  const emailForms = formHtml.querySelector('input[name="email"]') as HTMLInputElement;
+
   // const { APP_SERVER_HOST, APP_SERVER_PORT, APP_ACCOUNTS_PATHNAME } = process.env;
   if ((APP_SERVER_HOST === null) || (APP_SERVER_HOST === undefined) ||
     (APP_SERVER_PORT === null) ||
@@ -24,26 +32,60 @@ export default async function handlerRegistration(e: MouseEvent): Promise<boolea
   const host = APP_SERVER_HOST as string;
   const pathnames = APP_ACCOUNTS_PATHNAME as string;
   const port = APP_SERVER_PORT as string;
-  const url: string = host + ':' + port + pathnames;
+  let url: string = host + ':' + port + pathnames;
   const h = {
     'X-CSRFToken': getCookie('csrftoken') as string,
     'Content-Type': 'application/json' // contentType
   };
   const context = {
-    username: 'Boris',
-    password: '1234567896',
-    repassword: '1234567896',
-    email: 'user_test@test.ru'
+    username: usernameForms.value,
+    password: passwordForms.value,
+    repassword: repasswordForms.value,
+    email: emailForms.value,
+    is_superuser: false
   };
 
-  const request = await fetch(url, {
+  fetch(url, {
     method: 'POST',
     headers: h,
     body: JSON.stringify(context)
-  });
-  if (!request.ok) {
-    console.log('[handlerRegistration > post]: POST-request is a False');
-  }
-  // location.assign(host + ':' + port + 'account');
+  })
+    .then((resp) => {
+      return resp.json();
+    })
+    .catch(() => {
+      target.insertAdjacentElement('beforebegin', APP_INFO_FORM_REGIST_USER);
+      console.log('[handlerRegistration > post]: POST-request is a False');
+      return false;
+    })
+    .then((resp) => {
+      console.log(resp);
+      // const urlRelocation = `http://127.0.0.1:8000/api/v1/accounts/${resp.id}`;// `http://${host}':'${port}/profile/`;
+      const urlRelocation = `http://${host}':'${port}/profile/${resp.id}`;
+      // url = host + ':' + port + pathnames;
+      // request = await fetch(urlRelocation, {
+      //   method: 'POST',
+      //   headers: h,
+      //   body: JSON.stringify(context)
+      // });
+      location.assign(urlRelocation);
+    });
+  // if (!request.ok) {
+  //   target.insertAdjacentElement('beforebegin', APP_INFO_FORM_REGIST_USER);
+  //   console.log('[handlerRegistration > post]: POST-request is a False');
+  //   return false;
+  // }
+  // const responseBody = await request.json();
+  // try {
+  //   const dataJson = JSON.parse(responseBody);
+  //   const url_relocation = `http://127.0.0.1:8000/api/v1/accounts/${dataJson.id}`;// `http://${host}':'${port}/profile/`;
+  // } catch (er) {
+  //   console.error(`[handlerRegistration >> fetch ]Error ${er as string}`);
+  // };
+
+  // if (request.ok) {
+  //   return false;
+  // }
+  // location.assign(url_relocation);
   return true;
 }

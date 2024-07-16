@@ -1,5 +1,6 @@
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.views import LoginView
+from django.http import HttpResponse
 from rest_framework.renderers import JSONRenderer
 from rest_framework.response import Response
 from  rest_framework import status
@@ -7,10 +8,11 @@ from django.shortcuts import render, redirect
 from rest_framework.viewsets import ModelViewSet
 
 import os
+import json
+from .admin import account_users_site
 from .forms import CustomAuthenticationForm
 from .models import UsersRegistrModel
 from .serializetors import Users_serializers
-
 def form_authorisation_onPage(request):
     '''
     TODO: There page loading for user registration.
@@ -34,24 +36,26 @@ def form_authorisation_onPage(request):
     # return Response( data = json_, status = status.HTTP_200_OK )
     return render(request, template_name = template_name_, context=context_)
 
-def register(request):
-    if request.method == 'POST':
-        form = UsersAutorizationViews(request.POST)
-        if form.is_valid():
-            form.save()
-            username = form.cleaned_data.get('username')
-            password = form.cleaned_data.get('password')
-            user = authenticate(
-                username=username,
-                password=password
-            )
-            login(request, user)
-            return  redirect('home')
-        else:
-            form = UsersAutorizationViews()
-            template_name_ = 'users/registration.html'
-        return render(request, template_name_, {'form', form})
-# Create your views here.
+
+# User authentication
+def rubrics(reguest):
+		if reguest.useer.has_perms(('account.change_rubric',
+																'account.delete_rubric')):
+				# There is all good
+				print('HERE IS ALL GOOD')
+				pass
+		else:
+				return redirect('login')
+def user_authirization(request, *args, **kwargs):
+    object_list = UsersRegistrModel.objects.filter(pk=kwargs['id'])
+    if len(object_list) <= 0:
+        # return Response(request, status = status.HTTP_400_BAD_REQUEST)
+            return HttpResponse(content = "User not found", status=400)
+    object_dict = object_list.__dict__
+    
+    # return render(request, account_users_site)
+    return  HttpResponse(headers = object_dict, status = 200)
+
 class CustomAuthenticationView(LoginView):
   template_name = 'users/authorization.html'
   authentication_form = CustomAuthenticationForm
