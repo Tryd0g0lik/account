@@ -8,14 +8,16 @@ class CustomAuthBackend(BaseBackend):
 		'''
 			TODO: Переопределяем default авторизацию на самописную модель
 		'''
-		def authenticate(self, request, username=None, password=None):
+		def authenticate(self, request, kwargs=None) -> [list, bool]:
+				
 				try:
-						user = list(UsersRegistrModel.objects.filter(username=username))
-						if len(user) <= 0:
+						user_obj_list = UsersRegistrModel.objects.filter(id = kwargs['id'] )
+						
+						if len(list(user_obj_list)) <= 0:
 								return False
 						
 						# if user[0].check_password(password):
-								return user
+						return user_obj_list
 				except Exception as e:
 						print(f'[authenticate]: Error {e}')
 						return False

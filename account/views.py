@@ -1,5 +1,6 @@
 from django.contrib.auth import authenticate, login
-from django.contrib.auth.views import LoginView
+from django.contrib.auth.views import LoginView, redirect_to_login
+from django.contrib.auth import authenticate, login
 from django.http import HttpResponse
 from rest_framework.renderers import JSONRenderer
 from rest_framework.response import Response
@@ -11,6 +12,7 @@ import os
 import json
 from .admin import account_users_site
 from .forms import CustomAuthenticationForm
+from .interfaces import CustomAuthBackend as CAB
 from .models import UsersRegistrModel
 from .serializetors import Users_serializers
 def form_authorisation_onPage(request):
@@ -47,15 +49,24 @@ def rubrics(reguest):
 		else:
 				return redirect('login')
 def user_authirization(request, *args, **kwargs):
-    object_list = UsersRegistrModel.objects.filter(pk=kwargs['id'])
-    if len(object_list) <= 0:
-        # return Response(request, status = status.HTTP_400_BAD_REQUEST)
-            return HttpResponse(content = "User not found", status=400)
-    object_dict = object_list.__dict__
-    
+		# object_list = UsersRegistrModel.objects.filter(pk=kwargs['id'])
+		cab = CAB()
+		response = cab.authenticate(request=request, kwargs=kwargs)
+		user_obj_list = response if type(response) != bool else []
+		if len(user_obj_list) <= 0:
+				return HttpResponse(content = "User not founded", status=400)
+		
+		# render(request, template_name = template_name_, context=context_)
+		# login(user_obj_list[0])
     # return render(request, account_users_site)
-    return  HttpResponse(headers = object_dict, status = 200)
+		# return  redirect_to_login('profile/<int:id>/', )
+    # return  HttpResponse(headers = object_dict, status = 200)
 
+		context = {
+				"email":user_obj_list[0].email,
+				"username":user_obj_list[0].username
+		}
+		return render(request, template_name = 'users/registration.html', context = context)
 class CustomAuthenticationView(LoginView):
   template_name = 'users/authorization.html'
   authentication_form = CustomAuthenticationForm

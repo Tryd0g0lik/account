@@ -61,7 +61,7 @@ export default async function handlerRegistration(e: MouseEvent): Promise<boolea
     .then((resp) => {
       console.log(resp);
       // const urlRelocation = `http://127.0.0.1:8000/api/v1/accounts/${resp.id}`;// `http://${host}':'${port}/profile/`;
-      const urlRelocation = `http://${host}':'${port}/profile/${resp.id}`;
+      const urlRelocation = `http://${host}:${port}/profile/${resp.id}/`;
       // url = host + ':' + port + pathnames;
       // request = await fetch(urlRelocation, {
       //   method: 'POST',
