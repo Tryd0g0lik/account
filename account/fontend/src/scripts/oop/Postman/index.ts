@@ -58,32 +58,34 @@ class Postman {
       const dataJson = await request.json();
       return dataJson as object;
     } else if ((requestsView as string).includes(RequstsView.get)) {
-      const urlParams = new URL(url);
+      // There has a get-request to sending.
+      const urlParams = new URL('http://127.0.0.1:8000/profile/page/');
       urlParams.searchParams.set('password', this.context.repassword as string);
       urlParams.searchParams.set('email', this.context.email as string);
-      const request = await fetch(urlParams, {
+      // const request = await fetch(urlParams.toString(), {
+      // (this.headers as object).
+      const headler = { ...this.headers };
+      const obj = Object(headler);
+      if (Object.prototype.hasOwnProperty.call(obj, 'X-CSRFToken')) {
+        delete obj['X-CSRFToken'];
+      };
+
+      fetch(urlParams.toString(), {
         method: requestsView,
-        headers: this.headers
-      });
-      if (!request.ok) {
-        console.log('[Postman > post]: POST-request is a FALSE');
-        return false;
-      }
-      console.log('[Postman > post]: POST-request is a TRUE');
-      const dataJson = await request.json();
-      return dataJson as object;
-      return false;
-    } else if ((requestsView as string).includes(RequstsView.patch)) {
-      return false;
-    } else if ((requestsView as string).includes(RequstsView.delete)) {
-      return false;
+        headers: obj
+      })
+        .then((request) => {
+          return request.json();
+        });
     }
-    return false;
   }
 
   async request(props: PostmansRequest): Promise<boolean | object> {
     try {
       const response = await this.post(props);
+      if (response === false) {
+        throw new Error('[Postman > requesty]: Something what wrong!');
+      }
       return response;
     } catch (er: string | unknown | undefined) {
       throw new Error(`[Postman > requesty]: Something what wrong - ${er}`);

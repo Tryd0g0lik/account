@@ -85,16 +85,26 @@ def user_get_checking_andRegistration(request, *args, **kwargs):
 		}
 		return render(request, template_name = 'users/registration.html', context = context)
 
-@login_required
+# @login_required
 def user_get_uthorization(request, *ergs, **kwargs):
+		if (request.method != 'GET'):
+				return
 		user_list = UsersRegistrModel.objects.filter(email=request.GET['email'])
 		if len(user_list) <= 0:
 				return  HttpResponse(content = "User not founded", status=400)
 		if request.GET['password'] == user_list[0].password:
-				context = {"id":user_list[0].id}
+				BASE_DIR = os.path.dirname( os.path.dirname( os.path.abspath( __file__ ) ) )
+				file_static_css = os.listdir( os.path.join( BASE_DIR, 'account\\static\\account\\css' ) )[-1]
+				file_static_js = os.listdir( os.path.join( BASE_DIR, 'account\\static\\account\\javascripts' ) )[-1]
+				# context = {"id":user_list[0].id}
+				context = {
+						'title': 'The User Good',
+						'account_styles': file_static_css,
+						'account_js': file_static_js,
+				}
 				# возвращает ошибку если смотреть в браузерею. ide  стр
-				
-				return render(request, template_name = 'users/accounts.html', context = context)
+				kwargs = {}
+				return render(request, template_name = 'users/accounts.html', status = 200, context = context)
 		return HttpResponse( content = "User not founded", status = 400 )
 		
 		

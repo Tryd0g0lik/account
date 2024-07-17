@@ -1,25 +1,32 @@
 <!DOCTYPE html>
 <html lang = "ru">
-{% axtends 'admin/base.html" %}
-{load i18n %}
-{% block title %}{{ title }} | {% trans 'Django site admin' %}{% endblock %}
+	{% extends "admin/base.html" %}
+	{% load static %}
+	{% load render_bundle from webpack_loader %}
+	{load i18n %}
 
 <head>
-	<meta charset = "UTF-8">
-	<title>Title</title>
+	{% block head %}
+		{{ block.super }}
+		{% block title %}
+			{{ title }}
+		{% endblock title %}
+	{% endblock head %}
+
+	{% block extrahead %}
+		{{ block.super }}
+		<link href="{% static 'account/css/' %}{{account_styles}}" rel="stylesheet" />
+		<script src="{% static 'account/javascripts/' %}{{account_js}}"></script>
+	{% endblock extrahead %}
 </head>
 <body>
-{% block branding %}
-<h1 id="site-name">{% trans 'My custom admin' %}</h1>
+
+	{% block branding %}
+		<h1 id="site-name">Good</h1>
+	{% endblock branding %}
+
+{% block nav-global %}
 {% endblock %}
 
-{% block nav-global %}{% endblock %}
-	<div class="body">
-		<header>
-			<div class="h1">
-				<h1>Вы авторизовались</h1>
-			</div>
-		</header>
-	</div>
 </body>
 </html>

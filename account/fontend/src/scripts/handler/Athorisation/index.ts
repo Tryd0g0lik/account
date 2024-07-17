@@ -16,9 +16,8 @@ export default async function handlerAuthorisation (e: MouseEvent | KeyboardEven
     (APP_ACCOUNTS_PATHNAME === null)) {
     return false;
   };
-  const host = APP_SERVER_HOST as string;
-  const pathnames = APP_ACCOUNTS_PATHNAME as string;
-  const port = APP_SERVER_PORT as string;
+  const host = APP_SERVER_HOST.substring(0);
+  const port = APP_SERVER_PORT.substring(0);
   const urls: string = host + ':' + port + '/profile/page/';
 
   // There data of forms will geting
