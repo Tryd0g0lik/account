@@ -17,6 +17,7 @@ from .forms import CustomAuthorisationForm, CastomAuthenticationForm
 from .interfaces import CustomAuthBackend as CAB
 from .models import UsersRegistrModel
 from .serializetors import Users_serializers
+
 def form_authorisation_onPage(request):
     '''
     TODO: There page loading for user registration.
@@ -36,6 +37,8 @@ def form_authorisation_onPage(request):
         'account_styles': file_static_css,
         'account_js': file_static_js
     }
+		
+		
     # json_ = JSONRenderer().render( context_ )
     # return Response( data = json_, status = status.HTTP_200_OK )
     return render(request, template_name = template_name_, context=context_)
@@ -89,23 +92,50 @@ def user_get_checking_andRegistration(request, *args, **kwargs):
 def user_get_uthorization(request, *ergs, **kwargs):
 		if (request.method != 'GET'):
 				return
+		# data_ofBody_json = json.loads(request.body)
+		if( dict(request.GET).get('email') == None ) \
+				or (dict(request.GET).get['password'] == None):
+				return HttpResponse(content = "There 'emai' or 'password not founded was",
+														status=400)
+				
 		user_list = UsersRegistrModel.objects.filter(email=request.GET['email'])
 		if len(user_list) <= 0:
 				return  HttpResponse(content = "User not founded", status=400)
+		# if data_ofBody_json['repassword'] == user_list[0].password:
 		if request.GET['password'] == user_list[0].password:
 				BASE_DIR = os.path.dirname( os.path.dirname( os.path.abspath( __file__ ) ) )
 				file_static_css = os.listdir( os.path.join( BASE_DIR, 'account\\static\\account\\css' ) )[-1]
 				file_static_js = os.listdir( os.path.join( BASE_DIR, 'account\\static\\account\\javascripts' ) )[-1]
 				# context = {"id":user_list[0].id}
-				context = {
+				context_ = {
 						'title': 'The User Good',
 						'account_styles': file_static_css,
 						'account_js': file_static_js,
+						"id": user_list[0].id
 				}
-				# возвращает ошибку если смотреть в браузерею. ide  стр
-				kwargs = {}
-				return render(request, template_name = 'users/accounts.html', status = 200, context = context)
-		return HttpResponse( content = "User not founded", status = 400 )
+				request.GET = dict( request.GET ).clear()
+				# return render( request=request,
+				# 							 template_name = 'users/accounts.html',
+				# 							 context = context_ )
+				''''
+				
+Ошибка
+делаю fetch запросы на адресс "profile/page/" . отправляю данные и на выходе
+жду render  на этот же путь  "profile/page/" но уже без параметров.
+
+Заменить render на JSONResponse чтоб отправить результат проверки
+ Получение результата проверки вызвать принудительную релокацию в админку (уточнить путь .)
+	Уже  релокация вызывает rende
+	return render(request=request, template_name = 'users/accounts.html', context = context)
+
+JsonResponse
+	return HttpResponse(content = )
+				'''
+				
+				
+			# не хватает return
+				# return render(request=request, template_name = 'users/accounts.html', context = context)
+		return HttpResponse(content = "User not founded", status = 400 )
 		
 		
 class CustomAuthenticationView(LoginView):

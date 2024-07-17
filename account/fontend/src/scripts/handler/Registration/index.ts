@@ -73,7 +73,7 @@ export default async function handlerRegistration (e: MouseEvent|KeyboardEvent):
         return false;
       }
       console.log(resppon);
-      const pathname = `profile/${resppon.id}/`;
+      const pathname = `account/${resppon.id}/`;
       const url_ = window.location.href.replace('account/', pathname);
       const urlRelocztion = new URL(url_);
       urlRelocztion.search = window.location.search;

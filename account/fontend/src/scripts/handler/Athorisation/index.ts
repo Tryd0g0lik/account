@@ -18,17 +18,16 @@ export default async function handlerAuthorisation (e: MouseEvent | KeyboardEven
   };
   const host = APP_SERVER_HOST.substring(0);
   const port = APP_SERVER_PORT.substring(0);
-  const urls: string = host + ':' + port + '/profile/page/';
+  const urls: string = host + ':' + port + '/account/login/';
 
   // There data of forms will geting
   const formHtml = target.parentElement as HTMLFormElement;
   const emailForms = formHtml.querySelector('input[name="email"]') as HTMLInputElement;
   const passwordForms = formHtml.querySelector('input[name="password"]') as HTMLInputElement;
   let props: Context | PostmansRequest = {
-    repassword: passwordForms.value,
+    password: passwordForms.value,
     email: emailForms.value
   };
-
 
   const postman = new Postman({ ...props });
   props = {

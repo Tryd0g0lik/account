@@ -15,7 +15,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.contrib.auth.views import LogoutView
+from django.contrib.auth.views import LogoutView, LoginView
 from django.urls import path, include
 from account.admin import account_users_site
 from .rest_routers import router
@@ -26,10 +26,10 @@ from account.views import form_authorisation_onPage, user_get_checking_andRegist
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('account/', form_authorisation_onPage, name='account'), # account_users_site.urls),
-    path('profile/<int:id>/', user_get_checking_andRegistration, name= 'profile'), # account_users_site.urls),
-    path('profile/page/', user_get_uthorization, name= 'profilepage'), # account_users_site.urls),
+    path('account/<int:id>/', user_get_checking_andRegistration, name= 'accountUser'), # account_users_site.urls),
+    path('account/login/', LoginView.as_view(), name= 'login'), # account_users_site.urls), # user_get_uthorization
     # path('profile/', LogoutView.as_view(), name='profile' ), # next_page='account:authorization'
     path('api/v1/', include(router.urls)) # ,  namespace='accountApi'
 ]
-
+# 'profile/page/'
 
