@@ -19,15 +19,15 @@ from django.contrib.auth.views import LogoutView
 from django.urls import path, include
 from account.admin import account_users_site
 from .rest_routers import router
-from account.views import form_authorisation_onPage, user_authirization  # , register
+from account.views import form_authorisation_onPage, user_get_checking_andRegistration, user_get_uthorization  # , register
 
 
 # app_name = 'account'
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('account/', form_authorisation_onPage, name='account'), # account_users_site.urls),
-    path('profile/<int:id>/', user_authirization, name='profile'), # account_users_site.urls),
-    # path('profile/page/', register, name='profile'), # account_users_site.urls),
+    path('profile/<int:id>/', user_get_checking_andRegistration, name= 'profile' ), # account_users_site.urls),
+    path('profile/page/', user_get_uthorization, name= 'profilepage' ), # account_users_site.urls),
     # path('profile/', LogoutView.as_view(), name='profile' ), # next_page='account:authorization'
     path('api/v1/', include(router.urls)) # ,  namespace='accountApi'
 ]

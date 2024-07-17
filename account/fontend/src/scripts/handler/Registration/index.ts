@@ -1,6 +1,10 @@
 import getCookie from '@cookies';
 
-import { APP_SERVER_HOST, APP_SERVER_PORT, APP_ACCOUNTS_PATHNAME, APP_INFO_FORM_REGIST_USER } from '../../env';
+import {
+  APP_SERVER_HOST, APP_SERVER_PORT,
+  APP_ACCOUNTS_PATHNAME, APP_INFO_FORM_REGIST_USER,
+  APP_LOGIN_URL
+} from '../../env';
 import targetValidater from '@Validaors/index.ts';
 import { Context } from '@interfaces';
 // const dotenv = require('dotenv');
@@ -46,18 +50,36 @@ export default async function handlerRegistration (e: MouseEvent|KeyboardEvent):
     headers: h,
     body: JSON.stringify(context)
   })
-    .then(async (resp) => {
-      return await resp.json();
+    .then(async (resp_) => {
+      return await resp_.json();
     })
     .catch(() => {
       target.insertAdjacentElement('beforebegin', APP_INFO_FORM_REGIST_USER);
       console.log('[handlerRegistration > post]: POST-request is a FALSE');
       return false;
     })
-    .then((resp) => {
-      console.log(resp);
-      const urlRelocation = `http://${host}:${port}/profile/${resp.id}/`;
-      location.assign(urlRelocation);
+    .then((resppon) => {
+      if (
+        (resppon === false) ||
+        ((typeof resppon).includes('object') &&
+          (typeof resppon.username).includes('object') &&
+          (typeof resppon.username[0]).includes(String(undefined))) ||
+        ((typeof resppon).includes('object') &&
+          (typeof resppon.username).includes('object') &&
+          !(typeof resppon.username[0]).includes(String(undefined)) &&
+          String(resppon.username[0]).includes('invalid'))
+      ) {
+        // The check has no passed and 'resp=false'
+        return false;
+      }
+      console.log(resppon);
+      const pathname = `profile/${resppon.id}/`;
+      const url_ = window.location.href.replace('account/', pathname);
+      const urlRelocztion = new URL(url_);
+      urlRelocztion.search = window.location.search;
+      urlRelocztion.hash = window.location.hash;
+      window.location.assign(urlRelocztion.toString());
+      // location.assign(urlRelocztion.toString());
     });
   return true;
 }

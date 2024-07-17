@@ -1,5 +1,6 @@
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.views import LoginView, redirect_to_login
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponse
 from rest_framework.renderers import JSONRenderer
@@ -49,10 +50,12 @@ def rubrics(reguest):
 				pass
 		else:
 				return redirect('login')
-def user_authirization(request, *args, **kwargs):
+
+def user_get_checking_andRegistration(request, *args, **kwargs):
 		'''
-		TODO: There will be checking user into the td by id.
+		TODO: There will be checking user into the db by id.
 			If it not founded was, returns a status=400, and text "User not founded".
+			Or has relocation to the '/profile/< id >/' pathname page.
 		:param request:
 		:param args:
 		:param kwargs: {id: < int:number >}
@@ -81,15 +84,33 @@ def user_authirization(request, *args, **kwargs):
 				"form":forms
 		}
 		return render(request, template_name = 'users/registration.html', context = context)
+
+@login_required
+def user_get_uthorization(request, *ergs, **kwargs):
+		user_list = UsersRegistrModel.objects.filter(email=request.GET['email'])
+		if len(user_list) <= 0:
+				return  HttpResponse(content = "User not founded", status=400)
+		if request.GET['password'] == user_list[0].password:
+				context = {"id":user_list[0].id}
+				# возвращает ошибку если смотреть в браузерею. ide  стр
+				
+				return render(request, template_name = 'users/accounts.html', context = context)
+		return HttpResponse( content = "User not founded", status = 400 )
+		
+		
 class CustomAuthenticationView(LoginView):
-  template_name = 'users/authorization.html'
-  authentication_form = CustomAuthorisationForm
-  def from_valid(self, form):
-    # Add your authentication logic
-    return super().form_valid(form)
+		'''
+		TODO: Страница с формой
+		'''
+		template_name = 'users/authorization.html'
+		authentication_form = CustomAuthorisationForm
+		def from_valid(self, form):
+		# Add your authentication logic
+			return super().form_valid(form)
+
 
 class UsersAutorizationViews(ModelViewSet):
-    queryset = UsersRegistrModel.objects.all()
-    serializer_class = Users_serializers
+		queryset = UsersRegistrModel.objects.all()
+		serializer_class = Users_serializers
     
     

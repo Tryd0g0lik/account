@@ -151,9 +151,8 @@ module.exports = {
 
     alias: {
       '@cookies': path.resolve(__dirname, 'src/scripts/cookies.ts'),
-      '@intarfaces': path.relative(__dirname, "src/scripts/interfaces.ts"),
+      '@interfaces': path.resolve(__dirname, "src/scripts/interfaces.ts"),
       '@Postman': path.resolve(__dirname, 'src/scripts/oop/Postman'),
-      
       '@Validaors': path.resolve(__dirname, 'src/scripts/Validators'),
     }
   },

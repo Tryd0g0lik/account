@@ -1,5 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm
+from django.core.validators import EmailValidator, MaxValueValidator, MaxLengthValidator, MinLengthValidator
+
 from .models import UsersRegistrModel
 
 
@@ -18,10 +20,22 @@ class CustomAuthorisationForm( forms.ModelForm ):
 
   
 class CastomAuthenticationForm(forms.Form):
-  email = forms.CharField(label = 'Your email', max_length = 50)
+  email = forms.CharField(
+    label = 'Your email',
+    max_length = 50,
+    validators = [
+      EmailValidator(),
+      MaxLengthValidator(50)
+    ]
+  )
   password = forms.CharField(
     empty_value = "Your password",
     min_length = 10,
-    max_length = 30
+    max_length = 30,
+    validators = [
+      MaxLengthValidator(30),
+      MinLengthValidator(10)
+    ]
   )
+  
   

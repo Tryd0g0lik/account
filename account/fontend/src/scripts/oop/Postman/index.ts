@@ -29,7 +29,7 @@ class Postman {
   //   this.sername = obj.username;
   //   this.password = obj.password;
   //   this.repassword = obj.repassword;
-  //   this.is_superuser = false;
+    this.is_superuser = false;
     this.headers = headers;
     this.context = obj;
   }
@@ -42,11 +42,11 @@ class Postman {
    * props.context type 'interfaces.Context'
    * @returns Promise<boolean | object> .
    */
-  private async async post(props: PostmansRequest): Promise<boolean | object> {
+  private async post(props: PostmansRequest): Promise<boolean | object> {
     const { url, requestsView } = { ...props };
     if ((requestsView as string).includes(RequstsView.post)) {
       const request = await fetch(url, {
-        method: 'POST',
+        method: requestsView,
         headers: this.headers,
         body: JSON.stringify(this.context)
       });
@@ -58,6 +58,20 @@ class Postman {
       const dataJson = await request.json();
       return dataJson as object;
     } else if ((requestsView as string).includes(RequstsView.get)) {
+      const urlParams = new URL(url);
+      urlParams.searchParams.set('password', this.context.repassword as string);
+      urlParams.searchParams.set('email', this.context.email as string);
+      const request = await fetch(urlParams, {
+        method: requestsView,
+        headers: this.headers
+      });
+      if (!request.ok) {
+        console.log('[Postman > post]: POST-request is a FALSE');
+        return false;
+      }
+      console.log('[Postman > post]: POST-request is a TRUE');
+      const dataJson = await request.json();
+      return dataJson as object;
       return false;
     } else if ((requestsView as string).includes(RequstsView.patch)) {
       return false;
@@ -72,8 +86,7 @@ class Postman {
       const response = await this.post(props);
       return response;
     } catch (er: string | unknown | undefined) {
-      console.log(`[Postman > requesty]: Something what wrong - ${er}`);
-      return false;
+      throw new Error(`[Postman > requesty]: Something what wrong - ${er}`);
     }
   }
 }

@@ -1,4 +1,3 @@
-import getCookie from '@cookies';
 import targetValidater from '@Validaors/index.ts';
 import { APP_SERVER_HOST, APP_SERVER_PORT, APP_ACCOUNTS_PATHNAME, APP_INFO_FORM_REGIST_USER } from '../../env';
 import { Context, RequstsView, PostmansRequest } from '@interfaces';
@@ -20,7 +19,7 @@ export default async function handlerAuthorisation (e: MouseEvent | KeyboardEven
   const host = APP_SERVER_HOST as string;
   const pathnames = APP_ACCOUNTS_PATHNAME as string;
   const port = APP_SERVER_PORT as string;
-  const urls: string = host + ':' + port + 'profile/page/';
+  const urls: string = host + ':' + port + '/profile/page/';
 
   // There data of forms will geting
   const formHtml = target.parentElement as HTMLFormElement;
@@ -31,10 +30,11 @@ export default async function handlerAuthorisation (e: MouseEvent | KeyboardEven
     email: emailForms.value
   };
 
+
   const postman = new Postman({ ...props });
   props = {
     url: urls,
-    requestsView: RequstsView.post
+    requestsView: RequstsView.get
   };
-  postman.request(props);
+  const result = await postman.request(props);
 }
