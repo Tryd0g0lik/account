@@ -1,6 +1,6 @@
 from django.shortcuts import render
 import os
-from account.forms import CustomAuthorisationForm
+from account.forms import CustomAuthenticationForm
 def get_registration(request):
     '''
     TODO: There page loading for user registration.
@@ -10,7 +10,7 @@ def get_registration(request):
     template_name_ = 'users/authorization.html'
     if request.method != 'GET':
         return
-    authentication_form = CustomAuthorisationForm()
+    authentication_form = CustomAuthenticationForm()
     BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     last_part = BASE_DIR.split(os.sep)[-2]
     print(f'[LAST_PART]:  {last_part}')

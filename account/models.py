@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.contrib.auth.models import AbstractBaseUser, AbstractUser
 from django.core.validators import EmailValidator
 from django.db import models
 from django.core import validators
