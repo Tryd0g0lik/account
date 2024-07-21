@@ -1,21 +1,23 @@
 from django.shortcuts import render
 import os
-from account.forms import CustomAuthenticationForm
+from account.contributer.forms import UsercreationForm
 def get_registration(request):
     '''
     TODO: There page loading for user registration.
     :param request:
     :return:
     '''
-    template_name_ = 'users/authorization.html'
+    template_name_ = 'users/registration.html'
     if request.method != 'GET':
         return
-    authentication_form = CustomAuthenticationForm()
+    authentication_form = UsercreationForm() # CustomAuthenticationForm()
     BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    last_part = BASE_DIR.split(os.sep)[-2]
-    print(f'[LAST_PART]:  {last_part}')
-    file_static_css = os.listdir(os.path.join(last_part, '..\\..\\static\\account\\css'))[-1]
-    file_static_js = os.listdir(os.path.join(last_part, '\\account\\static\\account\\javascripts'))[-1]
+    last_part = BASE_DIR.split( os.sep )
+    first_part: str = last_part[0] + '/'
+    first_part += '/'.join( last_part[1:-1] )
+    print( f'[LAST_PART]:  {first_part}' )
+    file_static_css = os.listdir( os.path.join( first_part + '/static/account/css' ) )[-1]
+    file_static_js = os.listdir( os.path.join( first_part + '/static/account/javascripts' ) )[-1]
     context_ = {
         'form': authentication_form,
         'title': 'The User Account registration',

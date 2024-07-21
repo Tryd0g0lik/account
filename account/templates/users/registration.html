@@ -2,34 +2,41 @@
 <html lang = "ru">
 {% extends "admin/login.html" %}
 
-
-	{% if form.errors %}
+{% load render_bundle from webpack_loader %}
+	<!-- { % if form.errors % }
 		<p>Your username and password didn't match. Please try again.</p>
-	{% endif %}
-	{% if next %}
-	    {% if user.is_authenticated %}
+	{ % endif % }
+	{ % if next % }
+	    { % if user.is_authenticated % }
 	    <p>Your account doesn't have access to this page. To proceed,
 	    please login with an account that has access.</p>
-	    {% else %}
+	    { % else % }
 	    <p>Please login to see this page.</p>
-	    {% endif %}
-	{% endif %}
+	    { % endif % }
+	{ % endif % } -->
 <head>
     {% block head %}
 			{{ block.super }}
-			<title>{% block title %}
-				{{title}}
-				{% endblock title %}</title>
+			<title>{% block title %}{{title}}{% endblock title %}</title>
 		{% endblock head %}
-
+		{% load static %}
+		{% block extrahead %}
+			{{ block.super }}
+			<link href="{% static 'account/css/' %}{{account_styles}}" rel="stylesheet" />
+			<script src="{% static 'account/javascripts/' %}{{account_js}}"></script>
+		{% endblock extrahead %}
+</head>
 <body>
-	{% block content %}
-	    {{ block.super }}
+		{% block content %}
+	    <!-- { { block.super } } -->
 	    <p>Custom content added to the login form.</p>
-	    {% csrf_token %}
-	    {{ form }}
+			<form id="registr">
+		    {% csrf_token %}
+		    {{ form }}
 
-	    <button type="submit">Submit Test</button>
+	      <button type="submit">Зарегистрироваться</button>
+
+			</form>
 	{% endblock content %}
 
 </body>

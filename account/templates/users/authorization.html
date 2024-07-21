@@ -12,35 +12,34 @@
 	{% load static %}
 	{% block extrahead %}
 		{{ block.super }}
-
-
 		<link href="{% static 'account/css/' %}{{account_styles}}" rel="stylesheet" />
-
-
 		<script src="{% static 'account/javascripts/' %}{{account_js}}"></script>
 	{% endblock extrahead %}
-
 </head>
 <body>
-{% block content %}
-	<!-- { % if form.errors % }
-		<p>Your username and password didn't match. Please try again.</p>
-	{ % endif % }
-	{ % if next % }
-	    { % if user.is_authenticated % }
-	    <p>Your account doesn't have access to this page. To proceed,
-	    please login with an account that has access.</p>
-	    { % else % }
-	    <p>Please login to see this page.</p>
-	    { % endif % }
-	{ % endif % } -->
-	<form id="author" method="post" action="/account/form/"> <!-- method="post" action="{ % url 'login' % }" -->
-    {% csrf_token %}
-    {{ form }}
-    <button type="submit">Авторизоваться</button>
-		<input type="hidden" name="next" value="{{ next }}">
-	</form>
-{% endblock content %}
+	{% block content %}
+	<!-- { { block.super } } -->
+		<!-- { % if form.errors % }
+			<p>Your username and password didn't match. Please try again.</p>
+		{ % endif % }
+		{ % if next % }
+		    { % if user.is_authenticated % }
+		    <p>Your account doesn't have access to this page. To proceed,
+		    please login with an account that has access.</p>
+		    { % else % }
+		    <p>Please login to see this page.</p>
+		    { % endif % }
+		{ % endif % } -->
+		<form id="author"> <!-- method="post" action="{ % url 'login' % }" -->
+	    {% csrf_token %}
+	    {{ form }}
+			<div class="button">
+	      <button type="submit">Авторизоваться</button>
+			</div>
+
+			<input type="hidden" name="next" value="{{ next }}">
+		</form>
+	{% endblock content %}
 
 </body>
 </html>

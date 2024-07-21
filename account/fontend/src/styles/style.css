@@ -1,3 +1,16 @@
-#registr label{
+form label,
+.button{
   display: block;
 }
+
+.attention{
+  color: #ef9e9ee3;
+}
+
+#author button, 
+#author button{
+  width: 161px;
+  min-height: 29px;
+  max-height: 29px;
+}
+

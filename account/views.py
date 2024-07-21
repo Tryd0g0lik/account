@@ -7,9 +7,9 @@ from django.shortcuts import render, redirect
 from rest_framework.viewsets import ModelViewSet
 
 import os
-from .forms import CustomAuthenticationForm
+from .forms import CustomRegistrationForm
 from .models import UsersRegistrModel
-from .serializetors import Users_serializers
+from .serializers import Users_serializers
 
 def form_authorisation_onPage(request):
     '''
@@ -20,7 +20,7 @@ def form_authorisation_onPage(request):
     template_name_ = 'users/registration.html'
     if request.method != 'GET':
         return
-    authentication_form = CustomAuthenticationForm()
+    authentication_form = CustomRegistrationForm()
     BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     file_static_css = os.listdir(os.path.join(BASE_DIR, 'account\\static\\account\\css'))[-1]
     file_static_js = os.listdir(os.path.join(BASE_DIR, 'account\\static\\account\\javascripts'))[-1]
@@ -54,7 +54,7 @@ def register(request):
 # Create your views here.
 class CustomAuthenticationView(LoginView):
   template_name = 'users/authorization.html'
-  authentication_form = CustomAuthenticationForm
+  authentication_form = CustomRegistrationForm
   def from_valid(self, form):
     # Add your authentication logic
     return super().form_valid(form)
@@ -62,5 +62,5 @@ class CustomAuthenticationView(LoginView):
 class UsersAutorizationViews(ModelViewSet):
     queryset = UsersRegistrModel.objects.all()
     serializer_class = Users_serializers
-    
+
     
