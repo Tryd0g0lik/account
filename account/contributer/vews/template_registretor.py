@@ -2,7 +2,7 @@ from django.shortcuts import render
 import os
 from account.contributer.forms import UsercreationForm
 
-def get_registration(request):
+def get_registration_page(request):
     '''
     TODO: There page loading for user registration.
     :param request:
