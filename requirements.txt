@@ -16,3 +16,5 @@ flake8
 promise==2.3
 
 asyncio==3.4.3
+
+pep8 == 1.7.1

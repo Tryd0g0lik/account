@@ -40,22 +40,24 @@ class Postman {
    */
   private async post (props: PostmansRequest) {
     const { url, requestsView } = { ...props };
-    if ((requestsView as string).includes(RequstsView.post)) {
-      const request = await fetch(url, {
-        method: requestsView,
-        headers: { ...this.headers },
-        body: JSON.stringify(this.context)
-      });
-      if (!request.ok) {
-        console.log('[Postman > post]: POST-request is a FALSE');
-        return false;
+    if ((requestsView).includes(RequstsView.post)) {
+      try {
+        const request = await fetch(url, {
+          method: requestsView,
+          headers: { ...this.headers },
+          body: JSON.stringify({ ...this.context })
+        });
+
+        if (!request.ok) {
+          console.log('[Postman > post 1]: POST-request is a FALSE');
+          return false;
+        }
+        console.log('[Postman > post 2]: POST-request is a TRUE');
+        return await request.json();
+      } catch (er) {
+        console.log('[Postman > post 3]: POST-request Something what wrong');
       }
-      console.log('[Postman > post]: POST-request is a TRUE');
-      return await request.json();
-    } else if ((requestsView as string).includes(RequstsView.get)) {
-      const urlParams = new URL('http://127.0.0.1:8000/account/login/');
-      urlParams.searchParams.set('password', this.context.password as string);
-      urlParams.searchParams.set('email', this.context.email as string);
+    } else if ((requestsView).includes(RequstsView.get)) {
 
       const headler = { ...this.headers };
       const obj = Object(headler);
@@ -63,7 +65,7 @@ class Postman {
         delete obj['X-CSRFToken'];
       };
 
-      fetch(urlParams.toString(), {
+      fetch(url, {
         method: requestsView,
         headers: obj
       });
@@ -77,11 +79,11 @@ class Postman {
     try {
       const response = await this.post(props);
       if (response === false) {
-        throw new Error('[Postman > requesty]: Something what wrong!');
+        throw new Error('[Postman > requesty 1]: GET-request Something what wrong!');
       }
       return response;
     } catch (er: string | unknown | undefined) {
-      throw new Error(`[Postman > requesty]: Something what wrong - ${er}`);
+      throw new Error(`[Postman > requesty 2]:  GET-request Something what wrong - ${er as string}`);
     }
   }
 }

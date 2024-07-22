@@ -1,19 +1,22 @@
-{
+  {
   "status": "done",
   "assets": {
     "../css/style.css": {
       "name": "../css/style.css",
       "path": "E:\\OpenServer\\domains\\t-electroniks\\account\\static\\account\\css\\style.css"
     },
-    "main-main-17d89a92d7a8f23f3ff1.js": {
-      "name": "main-main-17d89a92d7a8f23f3ff1.js",
-      "path": "E:\\OpenServer\\domains\\t-electroniks\\account\\static\\account\\javascripts\\main-main-17d89a92d7a8f23f3ff1.js"
+
+    "main-main-7fa4262b09731fa20ee3.js": {
+      "name": "main-main-7fa4262b09731fa20ee3.js",
+      "path": "E:\\OpenServer\\domains\\t-electroniks\\account\\static\\account\\javascripts\\main-main-7fa4262b09731fa20ee3.js"
+
     }
   },
   "chunks": {
     "main": [
       "../css/style.css",
-      "main-main-17d89a92d7a8f23f3ff1.js"
+      "main-main-7fa4262b09731fa20ee3.js"
+
     ]
   }
 }

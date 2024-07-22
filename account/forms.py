@@ -1,41 +1,18 @@
 from django import forms
-from django.contrib.auth.forms import AuthenticationForm
-from django.core.validators import EmailValidator, MaxValueValidator, MaxLengthValidator, MinLengthValidator
-
 from .models import UsersRegistrModel
 
 
-class CustomAuthorisationForm( forms.ModelForm ):
+class CustomRegistrationForm(forms.ModelForm):
+
   class Meta:
     model = UsersRegistrModel
-    fields = ['username', 'password', 'repassword', 'email' ]
+    fields = ['username', 'password', 'email']
     
   def save(self, commit=True):
-    user = super( CustomAuthorisationForm, self ).save( commit=False )
+    user = UsersRegistrModel()
     user.email = self.cleaned_data['email']
+    user.password1 = self.cleaned_data['password1']
+    user.password2 = self.cleaned_data['password2']
     if commit:
       user.save()
     return user
-  
-
-  
-class CastomAuthenticationForm(forms.Form):
-  email = forms.CharField(
-    label = 'Your email',
-    max_length = 50,
-    validators = [
-      EmailValidator(),
-      MaxLengthValidator(50)
-    ]
-  )
-  password = forms.CharField(
-    empty_value = "Your password",
-    min_length = 10,
-    max_length = 30,
-    validators = [
-      MaxLengthValidator(30),
-      MinLengthValidator(10)
-    ]
-  )
-  
-  

@@ -1,28 +1,20 @@
 <!DOCTYPE html>
 <html lang = "ru">
-	{% extends "admin/base.html" %}
+	{% include "admin/base_site.html" %}
 	{% load static %}
 	{% load render_bundle from webpack_loader %}
-	{load i18n %}
+	{% load i18n %}
 
 <head>
 	{% block head %}
-		{{ block.super }}
-		{% block title %}
+
+		{% block content_title %}
 			{{ title }}
-		{% endblock title %}
+		{% endblock content_title %}
 	{% endblock head %}
 
 
 </head>
 <body>
-
-	{% block branding %}
-		<h1 id="site-name">Good</h1>
-	{% endblock branding %}
-
-{% block nav-global %}
-{% endblock %}
-
 </body>
 </html>

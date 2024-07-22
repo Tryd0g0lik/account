@@ -1,3 +1,3 @@
 [flake8]
 extend-ignore = E111, E302
-exclude = .github, active, docker, **/settings.py, .*, main.py, manage.py, **/migrations/*.py, tests.py
+exclude = .github, arhive, active, **/fontend, docker, **/settings.py, .*,  venv, main.py, manage.py, **/migrations/*.py, tests.py
