@@ -1,8 +1,8 @@
 from rest_framework.routers import DefaultRouter
 
-from account.views import UsersAutorizationViews
+from account.views import UsersAccaountViews
 
 router = DefaultRouter()
 
 
-router.register('^account', UsersAutorizationViews, basename='register')
+router.register('^account', UsersAccaountViews, basename= 'register' )

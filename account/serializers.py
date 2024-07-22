@@ -1,9 +1,5 @@
 from rest_framework import serializers, status
-from rest_framework.decorators import api_view
-from rest_framework.serializers import raise_errors_on_nested_writes
-from rest_framework.utils import model_meta
 
-import traceback
 from account.models import UsersRegistrModel
 from django.utils.translation import gettext_lazy as _
 from datetime import datetime, time, timezone
@@ -22,7 +18,8 @@ class Users_serializers(serializers.ModelSerializer):
 				model = UsersRegistrModel
 				fields = ['id', 'email', 'username', 'password', 'date_joined']# '__all__'
 				extra_kwargs = { 'password': { 'write_only': True } }
-				
+		
+
 		def validate_username(self, value):
 				
 				username_list = UsersRegistrModel.objects.filter( username__startswith = value )

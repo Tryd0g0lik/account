@@ -36,7 +36,7 @@ def form_authorisation_onPage(request):
 
 def register(request):
     if request.method == 'POST':
-        form = UsersAutorizationViews(request.POST)
+        form = UsersAccaountViews( request.POST )
         if form.is_valid():
             form.save()
             username = form.cleaned_data.get('username')
@@ -48,7 +48,7 @@ def register(request):
             login(request, user)
             return  redirect('home')
         else:
-            form = UsersAutorizationViews()
+            form = UsersAccaountViews()
             template_name_ = 'users/registration.html'
         return render(request, template_name_, {'form', form})
 # Create your views here.
@@ -59,8 +59,12 @@ class CustomAuthenticationView(LoginView):
     # Add your authentication logic
     return super().form_valid(form)
 
-class UsersAutorizationViews(ModelViewSet):
+
+# That is API db- User ['GET', 'CRATE', 'PUT' ]
+class UsersAccaountViews( ModelViewSet ):
     queryset = UsersRegistrModel.objects.all()
     serializer_class = Users_serializers
 
 
+# That is API db- User ['DELETE' ]
+# def
