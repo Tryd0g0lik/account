@@ -63,4 +63,4 @@ class UsersAutorizationViews(ModelViewSet):
     queryset = UsersRegistrModel.objects.all()
     serializer_class = Users_serializers
 
-    
+

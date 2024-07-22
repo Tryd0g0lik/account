@@ -37,15 +37,8 @@ class UsersRegistrModel(User):
 		TODO:
 		:param password: do not has a '"%}][{ and more symbol \
 		 which not has to the unicode.
-		 Min. = `passw_min_quantity_len`.
-		 Max. = 30
-	
+		 
 		'''
-		unicode_name = UnicodeName()
-		name_max_quantity: int = 30
-		name_min_quantity = 3  # min quantity
-		
-		passw_max_quantity: int = 30
 		
 		class Meta:
 				proxy=True

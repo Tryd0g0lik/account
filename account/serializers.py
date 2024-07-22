@@ -1,11 +1,12 @@
 from rest_framework import serializers, status
+from rest_framework.decorators import api_view
 from rest_framework.serializers import raise_errors_on_nested_writes
 from rest_framework.utils import model_meta
 
 import traceback
 from account.models import UsersRegistrModel
 from django.utils.translation import gettext_lazy as _
-from datetime import datetime, timezone
+from datetime import datetime, time, timezone
 
 
 class Users_serializers(serializers.ModelSerializer):
@@ -19,13 +20,19 @@ class Users_serializers(serializers.ModelSerializer):
 		class Meta:
 				pass
 				model = UsersRegistrModel
-				fields = ['email', 'username', 'password', 'date_joined']# '__all__'
+				fields = ['id', 'email', 'username', 'password', 'date_joined']# '__all__'
 				extra_kwargs = { 'password': { 'write_only': True } }
 				
 		def validate_username(self, value):
+				
 				username_list = UsersRegistrModel.objects.filter( username__startswith = value )
-				if len( list( username_list ) ) > 0:
+				
+				if self.context['request'].method == 'POST' and len( list( username_list ) ) > 0:
 						raise ValueError( _( f'Пользователь с таким именем {value} уже существует в базе данных!' ) )
+				
+				if self.context['request'].method == 'PUT':
+						pass
+				
 				return value
 		def validated_email(self, value):
 				email_list = UsersRegistrModel.objects.filter( username__startswith = value )
@@ -39,7 +46,26 @@ class Users_serializers(serializers.ModelSerializer):
 						value = datetime.datetime.now()
 				return value
 		
+		
 		def create(self, validated_data):
 				validated_data['date_joined'] = datetime.now()
 				return super().create( validated_data )
-		#
+		
+		# https://www.django-rest-framework.org/api-guide/serializers/#saving-instances
+		def update(self, instance, validated_data):
+				email = validated_data.get('email')
+				username = validated_data.get('username')
+				try:
+						if bool(email) and email != instance.email:
+								raise ValueError(_(f"[{str(datetime.now().time())[:-4]} >> update >> email]: A email of user \
+can't changing. Write to support"))
+						if bool(username) and username != instance.username:
+								raise ValueError(_(f"[{str(datetime.now().time())[:-4]} >> update >> username]:A username \
+can't changing. Write to support"))
+				except Exception as er:
+						print(er)
+				
+				instance.password = validated_data.get('password')
+				instance.save()
+				
+				return instance
