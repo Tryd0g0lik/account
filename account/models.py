@@ -1,4 +1,4 @@
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, AbstractUser
 from account.dacorators import decorators_min_length_validators
 from .validators import min_length_validators
 
@@ -12,12 +12,12 @@ def update_min_length_validators(value: str):
 
 
 
-class UsersRegistrModel(User):
+class UsersRegistrModel(AbstractUser):
   '''
   TODO:
   :param password: do not has a '"%}][{ and more symbol \
    which not has to the unicode.
   '''
   
-  class Meta:
-    proxy = True
+  # class Meta:
+  #   proxy = True
