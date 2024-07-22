@@ -17,7 +17,6 @@ class AccountUser(User):
 
 class UsersRegistrModel(User):
   '''
-  TODO:
   :param password: do not has a '"%}][{ and more symbol \
    which not has to the unicode.
   '''
