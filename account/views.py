@@ -1,8 +1,9 @@
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.views import LoginView
+from rest_framework.decorators import api_view, renderer_classes, action
 from rest_framework.renderers import JSONRenderer
 from rest_framework.response import Response
-from  rest_framework import status
+from rest_framework import status, viewsets
 from django.shortcuts import render, redirect
 from rest_framework.viewsets import ModelViewSet
 
@@ -65,6 +66,11 @@ class UsersAccountViews( ModelViewSet ):
     queryset = UsersRegistrModel.objects.all()
     serializer_class = Users_serializers
 
-
-# That is API db- User ['DELETE' ]
-# def
+    @action( detail = True, methods = ['DELETE'] )
+    def remove(self, request, pk = None):
+        try:
+            user = self.get_object()
+            user.delete()
+            return Response( status = status.HTTP_204_NO_CONTENT )
+        except UsersAccountViews.DoesNotExist:
+            return Response( status = status.HTTP_404_NOT_FOUND )
