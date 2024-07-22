@@ -14,5 +14,5 @@ class Migration(migrations.Migration):
             model_name='usersregistrmodel',
             name='datetime',
             field=models.DateTimeField(auto_now_add=True),
-        ),
+       ),
     ]

@@ -14,7 +14,7 @@ class Migration(migrations.Migration):
     operations = [
         migrations.DeleteModel(
             name='UsersRegistrModel',
-        ),
+       ),
         migrations.CreateModel(
             name='UsersRegistrModel',
             fields=[
@@ -28,5 +28,5 @@ class Migration(migrations.Migration):
             managers=[
                 ('objects', django.contrib.auth.models.UserManager()),
             ],
-        ),
+       ),
     ]

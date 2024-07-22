@@ -13,5 +13,5 @@ class Migration(migrations.Migration):
         migrations.AlterModelOptions(
             name='usersregistrmodel',
             options={'verbose_name': 'user', 'verbose_name_plural': 'users'},
-        ),
+       ),
     ]

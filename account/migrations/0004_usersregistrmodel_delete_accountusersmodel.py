@@ -24,8 +24,8 @@ class Migration(migrations.Migration):
                 ('email', models.EmailField(help_text='that_your@email.adress', max_length=254, unique=True, validators=[django.core.validators.EmailValidator(message='Проверьте email-адрес.')])),
                 ('datetime', models.DateTimeField()),
             ],
-        ),
+       ),
         migrations.DeleteModel(
             name='AccountUsersModel',
-        ),
+       ),
     ]

@@ -13,5 +13,5 @@ class Migration(migrations.Migration):
         migrations.RenameModel(
             old_name='EmailModel',
             new_name='AccaountUsersAdmin',
-        ),
+       ),
     ]

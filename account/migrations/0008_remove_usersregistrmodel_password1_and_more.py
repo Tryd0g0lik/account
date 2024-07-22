@@ -13,9 +13,9 @@ class Migration(migrations.Migration):
         migrations.RemoveField(
             model_name='usersregistrmodel',
             name='password1',
-        ),
+       ),
         migrations.RemoveField(
             model_name='usersregistrmodel',
             name='password2',
-        ),
+       ),
     ]

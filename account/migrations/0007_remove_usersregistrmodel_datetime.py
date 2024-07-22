@@ -13,5 +13,5 @@ class Migration(migrations.Migration):
         migrations.RemoveField(
             model_name='usersregistrmodel',
             name='datetime',
-        ),
+       ),
     ]
