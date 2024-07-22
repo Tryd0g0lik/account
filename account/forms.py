@@ -13,7 +13,6 @@ class CustomRegistrationForm( forms.ModelForm ):
     fields = ['username', 'password',  'email' ]
     
   def save(self, commit=True):
-    # user = super(CustomAuthenticationForm, self).save(commit=False)
     user = UsersRegistrModel()
     user.email = self.cleaned_data['email']
     user.password1 = self.cleaned_data['password1']

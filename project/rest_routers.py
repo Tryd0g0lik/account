@@ -6,4 +6,4 @@ router = DefaultRouter()
 
 
 router.register('^account', UsersAccountViews, basename= 'register' )
-# router.register('^account/remove/<pk:int>', UsersAccountViews, basename= 'remove' )
+

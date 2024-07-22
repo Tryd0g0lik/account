@@ -1,7 +1,6 @@
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.views import LoginView
-from rest_framework.decorators import api_view, renderer_classes, action
-from rest_framework.renderers import JSONRenderer
+from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework import status, viewsets
 from django.shortcuts import render, redirect
@@ -31,9 +30,8 @@ def form_authorisation_onPage(request):
         'account_styles': file_static_css,
         'account_js': file_static_js
     }
-    # json_ = JSONRenderer().render( context_ )
-    # return Response( data = json_, status = status.HTTP_200_OK )
     return render(request, template_name = template_name_, context=context_)
+
 
 def register(request):
     if request.method == 'POST':
@@ -52,6 +50,8 @@ def register(request):
             form = UsersAccountViews()
             template_name_ = 'users/registration.html'
         return render(request, template_name_, {'form', form})
+
+
 # Create your views here.
 class CustomAuthenticationView(LoginView):
   template_name = 'users/authorization.html'
@@ -61,7 +61,7 @@ class CustomAuthenticationView(LoginView):
     return super().form_valid(form)
 
 
-# That is API db- User ['GET', 'CRATE', 'PUT' ]
+# That is API db- User ['GET/list', 'CREATE', 'PUT', 'DELETE']
 class UsersAccountViews( ModelViewSet ):
     queryset = UsersRegistrModel.objects.all()
     serializer_class = Users_serializers
