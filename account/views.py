@@ -10,6 +10,22 @@ from .models import UsersRegistrModel
 from .serializers import Users_serializers
 from account.contributer.vews.template_authorizator import *
 from account.contributer.vews.template_registretor import *
+
+
+# That is API db- User ['GET/list', 'CREATE', 'PUT', 'DELETE']
+class UsersAccountViews(ModelViewSet):
+    queryset = UsersRegistrModel.objects.all()
+    serializer_class = Users_serializers
+
+    @action(detail=True, methods=['DELETE'])
+    def remove(self):
+        try:
+            user = self.get_object()
+            user.delete()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        except UsersAccountViews.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
 # def form_authorisation_onPage(request):
 #     '''
 #     TODO: There page loading for user registration.
@@ -35,44 +51,32 @@ from account.contributer.vews.template_registretor import *
 #     }
 #     return render(request, template_name=template_name_, context=context_)
 
-def register(request):
-    if request.method == 'POST':
-        form = UsersAccountViews(request.POST)
-        if form.is_valid():
-            form.save()
-            username = form.cleaned_data.get('username')
-            password = form.cleaned_data.get('password')
-            user = authenticate(username=username,
-                                password=password)
-            login(request, user)
-            return redirect('home')
-        else:
-            form = UsersAccountViews()
-            template_name_ = 'users/registration.html'
-        return render(request,
-                      template_name_,
-                      {'form', form})
+# def register(request):
+#     if request.method == 'POST':
+#         form = UsersAccountViews(request.POST)
+#         if form.is_valid():
+#             form.save()
+#             username = form.cleaned_data.get('username')
+#             password = form.cleaned_data.get('password')
+#             user = authenticate(username=username,
+#                                 password=password)
+#             login(request, user)
+#             return redirect('home')
+#         else:
+#             form = UsersAccountViews()
+#             template_name_ = 'users/registration.html'
+#         return render(request,
+#                       template_name_,
+#                       {'form', form})
 
 
 # Create your views here.
-class CustomAuthenticationView(LoginView):
-  template_name = 'users/authorization.html'
-  authentication_form = CustomRegistrationForm
-  def from_valid(self, form):
-    # Add your authentication logic
-    return super().form_valid(form)
+# class CustomAuthenticationView(LoginView):
+#   template_name = 'users/authorization.html'
+#   authentication_form = CustomRegistrationForm
+#   def from_valid(self, form):
+#     # Add your authentication logic
+#     return super().form_valid(form)
 
 
-# That is API db- User ['GET/list', 'CREATE', 'PUT', 'DELETE']
-class UsersAccountViews(ModelViewSet):
-    queryset = UsersRegistrModel.objects.all()
-    serializer_class = Users_serializers
 
-    @action(detail=True, methods=['DELETE'])
-    def remove(self):
-        try:
-            user = self.get_object()
-            user.delete()
-            return Response(status=status.HTTP_204_NO_CONTENT)
-        except UsersAccountViews.DoesNotExist:
-            return Response(status=status.HTTP_404_NOT_FOUND)

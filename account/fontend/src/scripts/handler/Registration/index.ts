@@ -19,18 +19,25 @@ export default async function handlerRegistration (e: MouseEvent | KeyboardEvent
   e.preventDefault();
   // There data of forms will geting
   const formHtml = target.parentElement as HTMLFormElement;
-  const emailForms = formHtml.querySelector('input[name="email"]') as HTMLInputElement;
-  const password1 = formHtml.querySelector('input[name="password1"]') as HTMLInputElement;
-  const password2 = formHtml.querySelector('input[name="password2"]') as HTMLInputElement;
+  const emailHtml = formHtml.querySelector('input[name="email"]') as HTMLInputElement;
+  const usernameHtml = formHtml.querySelector('input[name="username"]') as HTMLInputElement;
+  const password1Html = formHtml.querySelector('input[name="password1"]') as HTMLInputElement;
+  const password2Html = formHtml.querySelector('input[name="password2"]') as HTMLInputElement;
 
-  if ((password1.value == null || password2.value == null || emailForms.value == null) ||
-    !(typeof emailForms.value).includes('string') ||
-    ((typeof emailForms.value).includes('string') && ('@').includes(emailForms.value)) ||
-    ((typeof password1.value).includes('string') &&
-      (typeof password2.value).includes('string') &&
-      !(password1.value).includes(password2.value))) {
+  if ((password1Html.value == null || password2Html.value == null ||
+    emailHtml.value == null || usernameHtml.value === null) ||
+    !(typeof emailHtml.value).includes('string') ||
+    ((typeof emailHtml.value).includes('string') && !('@').includes(emailHtml.value)) ||
+    (!(typeof usernameHtml.value).includes('string') ||
+    ((typeof usernameHtml.value).includes('string') && (usernameHtml.value).length < 3)) ||
+    ((typeof password1Html.value).includes('string') &&
+      (typeof password2Html.value).includes('string') &&
+      !(password1Html.value).includes(password2Html.value))) {
+    /* Check the form! */
     return false;
   }
+
+  
   if ((APP_SERVER_HOST === null) || (APP_SERVER_HOST === undefined) ||
     (APP_SERVER_PORT === null) ||
     (APP_API_REGISTRATION === null)) {
@@ -47,8 +54,8 @@ export default async function handlerRegistration (e: MouseEvent | KeyboardEvent
   };
   const context = {
     username: 'Boris',
-    password: password1.value,
-    email: emailForms.value
+    password: password1Html.value,
+    email: emailHtml.value
   };
 
   fetch(url, {

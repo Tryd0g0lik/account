@@ -3,7 +3,7 @@ from django.core.exceptions import ValidationError
 from account.models import UsersRegistrModel
 
 
-class UsercreationForm(forms.ModelForm):
+class UsersRegistrationForm(forms.ModelForm):
     '''
     TODO: A form for creating new users (registration a new user)
     `https://docs.djangoproject.com/en/5.0/topics/auth/customizing/#a-full-example`
@@ -15,7 +15,7 @@ class UsercreationForm(forms.ModelForm):
 
     class Meta:
         model = UsersRegistrModel
-        fields = ["email"]
+        fields = ["email", "username"]
 
     def clean_password2(self):
         '''
