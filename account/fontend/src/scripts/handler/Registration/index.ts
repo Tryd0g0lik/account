@@ -24,12 +24,18 @@ export default async function handlerRegistration (e: MouseEvent | KeyboardEvent
   const password1Html = formHtml.querySelector('input[name="password1"]') as HTMLInputElement;
   const password2Html = formHtml.querySelector('input[name="password2"]') as HTMLInputElement;
 
+  /* Here will the email's check */
+  const regexE = /^[A-Za-z][A-Za-z0-9_-]+@[a-z]{2,10}\.[a-z]{2,4}$/;
+  const regexU = /^[A-Za-z][A-Za-z0-9_]{3,10}$/;
+
   if ((password1Html.value == null || password2Html.value == null ||
-    emailHtml.value == null || usernameHtml.value === null) ||
-    !(typeof emailHtml.value).includes('string') ||
-    ((typeof emailHtml.value).includes('string') && !('@').includes(emailHtml.value)) ||
-    (!(typeof usernameHtml.value).includes('string') ||
-    ((typeof usernameHtml.value).includes('string') && (usernameHtml.value).length < 3)) ||
+    emailHtml.value == null || usernameHtml.value === null ||
+    (emailHtml.value === null)) ||
+    ((!(typeof emailHtml.value).includes('string')) ||
+    ((typeof emailHtml.value).includes('string') && (emailHtml.value).match(regexE) === null)) ||
+    ((!(typeof usernameHtml.value).includes('string')) || ((usernameHtml.value).match(regexU) === null) ||
+      ((typeof usernameHtml.value).includes('string') && ((usernameHtml.value).length < 3 ||
+    (usernameHtml.value).length > 30))) ||
     ((typeof password1Html.value).includes('string') &&
       (typeof password2Html.value).includes('string') &&
       !(password1Html.value).includes(password2Html.value))) {
@@ -37,7 +43,6 @@ export default async function handlerRegistration (e: MouseEvent | KeyboardEvent
     return false;
   }
 
-  
   if ((APP_SERVER_HOST === null) || (APP_SERVER_HOST === undefined) ||
     (APP_SERVER_PORT === null) ||
     (APP_API_REGISTRATION === null)) {
@@ -53,7 +58,7 @@ export default async function handlerRegistration (e: MouseEvent | KeyboardEvent
     'Content-Type': 'application/json' // contentType
   };
   const context = {
-    username: 'Boris',
+    username: usernameHtml.value,
     password: password1Html.value,
     email: emailHtml.value
   };
