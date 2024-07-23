@@ -1,6 +1,6 @@
 import handlerRegistration from './handler/Registration';
 import handlerAuthorisation from './handler/Athorisation';
-import { APP_PAGE_AUTHORIZSTION } from './env';
+import { APP_API_AUTHORIZSTION } from './env';
 // export const reAuthorPage = /\/account\/[0-9]+\//;
 
 const handlerLoadPage = (): void => {
@@ -14,7 +14,7 @@ const handlerLoadPage = (): void => {
     // there is page for user registration
     (bodyHtml[0] as HTMLElement).removeEventListener('click', handlerRegistration);
     (bodyHtml[0] as HTMLElement).addEventListener('click', handlerRegistration);
-  } else if ((pathname).includes(APP_PAGE_AUTHORIZSTION)) {
+  } else if ((pathname).includes(APP_API_AUTHORIZSTION)) {
     // there is page for uthorization
     (bodyHtml[0] as HTMLElement).removeEventListener('click', handlerAuthorisation);
     (bodyHtml[0] as HTMLElement).addEventListener('click', handlerAuthorisation);

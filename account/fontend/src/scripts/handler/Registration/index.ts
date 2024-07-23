@@ -3,6 +3,7 @@ import getCookie from '@cookies';
 import {
   APP_SERVER_HOST, APP_SERVER_PORT,
   APP_API_REGISTRATION, APP_INFO_FORM_REGIST_USER,
+  APP_API_AUTHORIZSTION,
   APP_LOGIN_URL
 } from '../../env';
 import targetValidater from '@Validaors/index.ts';
@@ -73,12 +74,22 @@ export default async function handlerRegistration (e: MouseEvent | KeyboardEvent
         return { data: 'NOT OK' };
       }
       return { data: 'OK' }; // await resp_.json();
+    })
+    .catch(() => {
+      target.insertAdjacentElement('beforebegin', APP_INFO_FORM_REGIST_USER);
+      console.log('[handlerRegistration > post]: POST-request is a FALSE');
+      return false;
+    })
+    .then(() => {
+      //     const pathname = 'account/form/'; // ${resppon.id}
+      const url_ = window.location.href.replace('account/registration/', APP_API_AUTHORIZSTION);
+      const urlRelocztion = new URL(url_);
+      urlRelocztion.search = window.location.search;
+      urlRelocztion.hash = window.location.hash;
+      window.location.assign(urlRelocztion.toString());
+      //     // location.assign(urlRelocztion.toString());
     });
-  //   .catch(() => {
-  //     target.insertAdjacentElement('beforebegin', APP_INFO_FORM_REGIST_USER);
-  //     console.log('[handlerRegistration > post]: POST-request is a FALSE');
-  //     return false;
-  //   })
+
   //   .then((resppon) => {
   //     if (
   //       (resppon === false) ||
@@ -94,13 +105,7 @@ export default async function handlerRegistration (e: MouseEvent | KeyboardEvent
   //       return false;
   //     }
   //     console.log(resppon);
-  //     const pathname = 'account/form/'; // ${resppon.id}
-  //     const url_ = window.location.href.replace('account/registration/', pathname);
-  //     const urlRelocztion = new URL(url_);
-  //     urlRelocztion.search = window.location.search;
-  //     urlRelocztion.hash = window.location.hash;
-  //     window.location.assign(urlRelocztion.toString());
-  //     // location.assign(urlRelocztion.toString());
+
   //   });
   // return true;
 }
