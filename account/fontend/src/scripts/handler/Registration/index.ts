@@ -81,6 +81,12 @@ export default async function handlerRegistration (e: MouseEvent | KeyboardEvent
       return false;
     })
     .then(() => {
+      (emailHtml.value).replace(/[*]+/g, '');
+      (usernameHtml.value).replace(/\w+/g, '');
+      (password1Html.value).replace(/[\w\-_\\%][)('"@]+/, '');
+      (password2Html.value).replace(/[\w\-_\\%][)('"@]+/, '');
+    })
+    .then(() => {
       //     const pathname = 'account/form/'; // ${resppon.id}
       const url_ = window.location.href.replace('account/registration/', APP_API_AUTHORIZSTION);
       const urlRelocztion = new URL(url_);
