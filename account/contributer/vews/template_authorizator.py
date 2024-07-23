@@ -12,7 +12,7 @@ def get_form_authorization(request, *args, **kwargs):
     :param kwargs: {id: < int:number >}
     :return: redirect to the page form authorisation.
     '''
-    forms = CustomRegistrationForm()
+    forms = CustomRegistrationForm() # account.forms к странице не подключен СТАТИК
     BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     last_part = BASE_DIR.split(os.sep)
     first_part: str = last_part[0] + '/'
