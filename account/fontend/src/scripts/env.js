@@ -4,6 +4,8 @@ export const APP_SERVER_PORT = '8000'
 export const APP_SERVER_HOST = 'http://127.0.0.1'
 export const APP_API_REGISTRATION = '/api/v1/account/'
 export const APP_API_AUTHORIZSTION = 'account/' 
+export const APP_REGEX_EMAIL = /^[A-Za-z][A-Za-z0-9_-]+@[a-z]{2,10}\.[a-z]{2,4}$/;
+export const APP_REGEX_USERNAME = /^[A-Za-z][A-Za-z0-9_]{3,10}$/;
 // куда переходим после не успешной авторизации
 export const APP_LOGIN_URL = 'http://127.0.0.1/account/'
 

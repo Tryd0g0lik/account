@@ -1,7 +1,12 @@
 import targetValidater from '@Validaors/index.ts';
-import { APP_SERVER_HOST, APP_SERVER_PORT, APP_API_REGISTRATION, APP_INFO_FORM_REGIST_USER } from '../../env';
+import {
+  APP_SERVER_HOST, APP_SERVER_PORT, APP_API_REGISTRATION,
+  APP_REGEX_EMAIL, APP_REGEX_USERNAME,
+  APP_INFO_FORM_REGIST_USER
+} from '../../env';
 import { Context, RequstsView, PostmansRequest } from '@interfaces';
 import Postman from '@Postman';
+import getEmailPassfordHtml from '@FieldsOfForm';
 
 export default async function handlerAuthorisation (e: MouseEvent | KeyboardEvent): Promise<undefined|boolean> {
   const target = e.target as HTMLButtonElement;
@@ -9,8 +14,8 @@ export default async function handlerAuthorisation (e: MouseEvent | KeyboardEven
   if (!resp) {
     return false;
   }
-  e.preventDefault();
 
+  e.preventDefault();
   if ((APP_SERVER_HOST === null) || (APP_SERVER_HOST === undefined) ||
     (APP_SERVER_PORT === null) ||
     (APP_API_REGISTRATION === null)) {
@@ -22,9 +27,18 @@ export default async function handlerAuthorisation (e: MouseEvent | KeyboardEven
 
   // There data of forms will geting
   const formHtml = target.parentElement as HTMLFormElement;
-  const emailForms = formHtml.querySelector('input[name="email"]') as HTMLInputElement;
-  const password1 = formHtml.querySelector('input[name="password1"]') as HTMLInputElement;
-  const password2 = formHtml.querySelector('input[name="password2"]') as HTMLInputElement;
+  const { emailHtml, password1Html } = getEmailPassfordHtml(formHtml);
+
+  if ((password1Html.value === null ||
+    emailHtml.value == null) ||
+    ((!(typeof emailHtml.value).includes('string')) ||
+      ((typeof emailHtml.value).includes('string') && (emailHtml.value).match(APP_REGEX_EMAIL) === null)) ||
+    ((typeof password1Html.value).includes('string'))) {
+    /* Check the form! */
+    return false;
+  }
+
+  // const password2 = formHtml.querySelector('input[name="password2"]') as HTMLInputElement;
   // let props: Context | PostmansRequest = {
   //   password: passwordForms.value,
   //   email: emailForms.value
