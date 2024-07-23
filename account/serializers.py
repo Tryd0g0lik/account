@@ -44,8 +44,10 @@ class Users_serializers(serializers.ModelSerializer):
             value = datetime.datetime.now()
         return value
     
+    
     def create(self, validated_data):
         validated_data['date_joined'] = datetime.now()
+        validated_data['is_active'] = False
         return super().create(validated_data)
     
     # https://www.django-rest-framework.org/api-guide/serializers/#saving-instances
