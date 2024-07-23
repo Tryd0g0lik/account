@@ -4,18 +4,10 @@ from django.utils.translation import gettext_lazy as _
 
 class CustomRegistrationForm(forms.ModelForm):
   
-  password2 = forms.CharField(
-    label='password2',
-    min_length=10,
-    max_length=30,
-    error_messages=({"message":_('Проверьте корректность пароля.')}),
-    help_text='Повторите пароль.'
-    )
-  
   
   class Meta:
     model = UsersRegistrModel
-    fields = ['username', 'email', 'password', 'password2']  #
+    fields = ['username', 'email', 'password']  #
     
   def save(self, commit=True):
     user = UsersRegistrModel()
