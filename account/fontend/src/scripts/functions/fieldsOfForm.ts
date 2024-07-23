@@ -12,7 +12,10 @@ interface Fields {
  */
 export default function getEmailPassfordHtml(formHtml: HTMLFormElement): Fields {
   const eHtml = formHtml.querySelector('input[name="email"]') as HTMLInputElement;
-  const pHtml = formHtml.querySelector('input[name="password1"]') as HTMLInputElement;
+  let pHtml = formHtml.querySelector('input[name="password1"]') as HTMLInputElement;
+  if (pHtml === null) {
+    pHtml = formHtml.querySelector('input[name="password"]') as HTMLInputElement;
+  }
   return {
     emailHtml: eHtml,
     password1Html: pHtml

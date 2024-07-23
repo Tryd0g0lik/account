@@ -1,6 +1,13 @@
 from django import forms
 from django.core.exceptions import ValidationError
+from django.core.validators import MinValueValidator, MaxLengthValidator, \
+    MinLengthValidator, EmailValidator
 from account.models import UsersRegistrModel
+from django.utils.translation import gettext_lazy as _
+
+
+class MinValueValidato:
+    pass
 
 
 class UsersRegistrationForm(forms.ModelForm):
@@ -9,9 +16,20 @@ class UsersRegistrationForm(forms.ModelForm):
     `https://docs.djangoproject.com/en/5.0/topics/auth/customizing/#a-full-example`
     '''
 
-    password1 = forms.CharField(label='Password', widget=forms.PasswordInput)
+    password1 = forms.CharField(label='Password', widget=forms.PasswordInput,
+                                validators=[
+                                    EmailValidator()
+                                ]
+                                )
     password2 = forms.CharField(label='Password configuration',
-                                widget=forms.PasswordInput)
+                                widget=forms.PasswordInput,
+                                error_messages = {
+                                    "min_length": _("Слишком короткий. От 10 символов."),
+                                    "max_length": _("Слишком длинный. До 30 символов.")
+                                },
+                                validators=[
+                                    MaxLengthValidator(30), MinLengthValidator(10)
+                                ])
 
     class Meta:
         model = UsersRegistrModel

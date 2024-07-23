@@ -1,6 +1,7 @@
 import os
 from django.shortcuts import render
-from account.forms import CustomRegistrationForm
+from account.forms import CustomRegistrationForm, CustomAutorisationsForm
+
 
 def get_form_authorization(request, *args, **kwargs):
     '''
@@ -12,7 +13,7 @@ def get_form_authorization(request, *args, **kwargs):
     :param kwargs: {id: < int:number >}
     :return: redirect to the page form authorisation.
     '''
-    forms = CustomRegistrationForm() # account.forms к странице не подключен СТАТИК
+    forms = CustomAutorisationsForm() # account.forms к странице не подключен СТАТИК
     BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     last_part = BASE_DIR.split(os.sep)
     first_part: str = last_part[0] + '/'

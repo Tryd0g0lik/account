@@ -26,31 +26,31 @@ export default async function handlerAuthorisation (e: MouseEvent | KeyboardEven
   const urls: string = host + ':' + port + '/account/authorization/';
 
   // There data of forms will geting
-  const formHtml = target.parentElement as HTMLFormElement;
+  const formHtml = (target.parentElement as HTMLElement).parentElement as HTMLFormElement;
   const { emailHtml, password1Html } = getEmailPassfordHtml(formHtml);
 
   if ((password1Html.value === null ||
     emailHtml.value == null) ||
     ((!(typeof emailHtml.value).includes('string')) ||
-      ((typeof emailHtml.value).includes('string') && (emailHtml.value).match(APP_REGEX_EMAIL) === null)) ||
-    ((typeof password1Html.value).includes('string'))) {
+      ((typeof emailHtml.value).includes('string') &&
+        (emailHtml.value).match(APP_REGEX_EMAIL) === null)) ||
+    (!(typeof password1Html.value).includes('string'))) {
     /* Check the form! */
     return false;
   }
 
-  // const password2 = formHtml.querySelector('input[name="password2"]') as HTMLInputElement;
-  // let props: Context | PostmansRequest = {
-  //   password: passwordForms.value,
-  //   email: emailForms.value
-  // };
+  let props: Context | PostmansRequest = {
+    password: password1Html.value,
+    email: emailHtml.value
+  };
 
-  // const postman = new Postman({ ...props });
-  // const urlParams = new URL('http://127.0.0.1:8000/account/form/');
-  // // urlParams.searchParams.set('password', props.password as string);
-  // // urlParams.searchParams.set('email', props.email as string);
-  // props = {
-  //   url: urlParams.toString(),
-  //   requestsView: RequstsView.post
-  // };
+  const postman = new Postman({ ...props });
+  const urlParams = new URL('http://127.0.0.1:8000/account/form/');
+  // urlParams.searchParams.set('password', props.password as string);
+  // urlParams.searchParams.set('email', props.email as string);
+  props = {
+    url: urlParams.toString(),
+    requestsView: RequstsView.post
+  };
   // const result = await postman.request({ ...props });
 }

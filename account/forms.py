@@ -3,7 +3,7 @@ from .models import UsersRegistrModel
 from django.utils.translation import gettext_lazy as _
 
 class CustomRegistrationForm(forms.ModelForm):
-
+  
 
   class Meta:
     model = UsersRegistrModel
@@ -17,3 +17,11 @@ class CustomRegistrationForm(forms.ModelForm):
     if commit:
       user.save()
     return user
+
+class CustomAutorisationsForm(forms.Form):
+  email = forms.EmailField(label="email", validators=[ ])
+  password = forms.CharField(label="password",
+                             widget=forms.PasswordInput,
+                             min_length=10, max_length=30)
+  
+  

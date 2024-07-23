@@ -22,7 +22,7 @@ export default async function handlerRegistration (e: MouseEvent | KeyboardEvent
   }
   e.preventDefault();
   // There data of forms will geting
-  const formHtml = target.parentElement as HTMLFormElement;
+  const formHtml = (target.parentElement as HTMLElement).parentElement as HTMLFormElement;
   const { emailHtml, password1Html } = getEmailPassfordHtml(formHtml);
   const usernameHtml = formHtml.querySelector('input[name="username"]') as HTMLInputElement;
   const password2Html = formHtml.querySelector('input[name="password2"]') as HTMLInputElement;
@@ -36,7 +36,7 @@ export default async function handlerRegistration (e: MouseEvent | KeyboardEvent
     (usernameHtml.value).length > 30))) ||
     ((typeof password1Html.value).includes('string') &&
       (typeof password2Html.value).includes('string') &&
-      !(password1Html.value).includes(password2Html.value))) {
+      !(password1Html.value as string).includes(password2Html.value))) {
     /* Check the form! */
     return false;
   }
