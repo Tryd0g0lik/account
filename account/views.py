@@ -13,6 +13,8 @@ from account.contribute.vews.template_authorizator import *
 from account.contribute.vews.template_registretor import *
 
 
+class ALoginView(LoginView):
+    template_name = "user/login.html"
 
 # That is API db- User ['GET/list', 'CREATE', 'PUT', 'DELETE']
 class UsersAccountViews(ModelViewSet):
