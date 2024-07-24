@@ -1,6 +1,7 @@
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.views import LoginView
 from django.shortcuts import render, redirect
+
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework import status
@@ -8,8 +9,9 @@ from rest_framework.viewsets import ModelViewSet
 
 from .models import UsersRegistrModel
 from .serializers import Users_serializers
-from account.contributer.vews.template_authorizator import *
-from account.contributer.vews.template_registretor import *
+from account.contribute.vews.template_authorizator import *
+from account.contribute.vews.template_registretor import *
+
 
 
 # That is API db- User ['GET/list', 'CREATE', 'PUT', 'DELETE']

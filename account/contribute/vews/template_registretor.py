@@ -1,6 +1,6 @@
 from django.shortcuts import render
 import os
-from account.contributer.forms import UsersRegistrationForm
+from account.contribute.forms import UsersRegistrationForm
 from account.forms import CustomRegistrationForm
 
 
@@ -13,7 +13,7 @@ def get_registration(request):
     template_name_ = 'users/registration.html'
     if request.method != 'GET':
         return
-    authentication_form = UsersRegistrationForm() # account.contributer.forms
+    authentication_form = UsersRegistrationForm() # account.contribute.forms
     BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     last_part = BASE_DIR.split(os.sep)
     first_part: str = last_part[0] + '/'

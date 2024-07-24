@@ -1,10 +1,16 @@
 from django.urls import path, re_path
-from account.contributer.vews.template_authorizator import \
+
+from account.contribute.vews.other_page import other_page, account_other_page
+from account.contribute.vews.template_authorizator import \
         get_form_authorization
-from account.contributer.vews.template_registretor import get_registration
+from account.contribute.vews.template_done import RegisterDoneView
+from account.contribute.vews.template_registretor import get_registration
 
 urlpatterns = [
         path('', get_form_authorization, name='account'),
         re_path(r'^form/', get_form_authorization, name='account'),
-        re_path(r'^registration/', get_registration, name='registration')
+        re_path(r'^registration/', get_registration, name='registration'),
+        re_path(r'^registration/done/$', RegisterDoneView.as_view(), name='register_done'),
+        path('<str:page>/', account_other_page, name='accountOther'),
+        
 ]
