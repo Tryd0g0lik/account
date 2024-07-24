@@ -23,7 +23,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = str(os.getenv('DJ_SECRET_KEY'))
+# SECRET_KEY = str(os.getenv('DJ_SECRET_KEY'))
+SECRET_KEY = "django-insecure-usvlzu!%!41#0bt%%)3hf3@!d))zlz4zwt#prbceqscr9tfqsw"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -37,13 +38,13 @@ INSTALLED_APPS = [
     'webpack_loader',
     'corsheaders',
     'rest_framework',
+    'bootstrap4',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'bootstrap4',
     'account'
 ]
 
@@ -85,7 +86,7 @@ WSGI_APPLICATION = 'project.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': str(os.getenv('POSTGRES_DB', 'account')),
+        'NAME': str(os.getenv('POSTGRES_DB', 'portfolio')),
         'USER': str(os.getenv('POSTGRES_USER', 'postgres')),
         'PASSWORD': str(os.getenv('POSTGRES_PASSWORD', '123')),
         'HOST': str(os.getenv('POSTGRES_HOST', 'localhost')),
@@ -93,7 +94,7 @@ DATABASES = {
     }
 }
 
-
+LANGUAGE_CODE = 'ru'
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
@@ -136,6 +137,7 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 DEFAULT_CHARSET = 'utf-8'
 
+AUTH_USER_MODEL = 'account.UsersRegistrModel'
 # WEBPACK
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'account'),

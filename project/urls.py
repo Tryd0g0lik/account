@@ -39,6 +39,6 @@ urlpatterns = [
     
     # re_path(r'*', get_basis_page, name="main"),
 ]
-
-if settings.DEBUG:
-    urlpatterns.append(path('static/<path:path>', never_cache(serve)))
+#
+# if settings.DEBUG:
+#     urlpatterns.append(path('static/<path:path>', never_cache(serve)))
