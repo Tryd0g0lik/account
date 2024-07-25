@@ -36,14 +36,14 @@
         {% if user.is_authenticated %}
           <li class="nav-item dropdown">
             <li clacc="nav-item">
-              <a href="{% url 'account:profile' %}" class="nav-link
+              <a href="{% url 'accounts:profile' %}" class="nav-link
               dropdown-toggle" tada-togle="dropdown" role="button"
                  aria-haspopup="true" aria-expanded="false">Профиль</a>
               <div class="dropdown-memu">
-                <a class="dropdown-item" href="{% url 'account:profile' %}">
+                <a class="dropdown-item" href="{% url 'accounts:profile' %}">
                   Мои объявления
                 </a>
-                <a class="dropdown-item" href="{% url 'account:logout' %}">
+                <a class="dropdown-item" href="{% url 'accounts:logout' %}">
                   Выход
                 </a>
               </div>
@@ -51,7 +51,7 @@
           </li>
         {% else %}
           <li class="nav-item">
-            <a href="{% url 'account:login' %}">Вход</a>
+            <a href="{% url 'accounts:login' %}">Вход</a>
           </li>
         {% endif %}
         <li clacc="nav-item">

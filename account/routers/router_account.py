@@ -9,7 +9,7 @@ from account.contribute.vews.template_registretor import get_registration
 from account.views import ALoginView, profile, ALogoutView
 
 urlpatterns = [
-        path('', get_form_authorization, name='account'),
+        path('', get_form_authorization, name='accounts'),
         re_path(r'^form/$', get_form_authorization, name='form'),
         re_path(r'profile/$', profile, name='profile'),
         re_path(r'^login/$', ALoginView.as_view(), name="login"), #template_name='users/login.html'
