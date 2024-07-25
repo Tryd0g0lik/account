@@ -30,7 +30,8 @@ from .rest_routers import router
 # 'admin/' Here a page of superadmin
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('account/', include(router_account.urlpatterns)),
+    path('account/', include((router_account.urlpatterns, 'account'),
+                             namespace='account')),
     path('api/v1/', include(router.urls)),
     
     path('', get_index_page, name='index'),

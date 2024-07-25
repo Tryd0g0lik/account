@@ -1,5 +1,6 @@
-from django.contrib.auth import authenticate, login
-from django.contrib.auth.views import LoginView
+from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
 
 from rest_framework.decorators import action
@@ -12,9 +13,16 @@ from .serializers import Users_serializers
 from account.contribute.vews.template_authorizator import *
 from account.contribute.vews.template_registretor import *
 
+class ALogoutView(LoginRequiredMixin, LogoutView):
+    template_name = "users/logout.html"
+
+@login_required
+def profile(request):
+    return render(request, 'users/profile.html')
+
 
 class ALoginView(LoginView):
-    template_name = "user/login.html"
+    template_name = "users/login.html"
 
 # That is API db- User ['GET/list', 'CREATE', 'PUT', 'DELETE']
 class UsersAccountViews(ModelViewSet):

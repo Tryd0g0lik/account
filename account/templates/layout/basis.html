@@ -8,7 +8,7 @@
   <meta charset = "UTF-8">
   <meta name="viewpost" content="width-device-width, initial-scale=1,
    shrink-to-fit-no">
-  <title>{% block title %}Главная{% endblock title%}} - Account</title>
+  <title>{% block title %}Главная{% endblock title %} - Account</title>
   {% bootstrap_css %}
   <link rel="stylesheet" type="text/css"
         href="{% static 'account/css/style.css' %}">
@@ -32,22 +32,28 @@
       <ul class="col nav justify-content-end border">
         <li clacc=nav-item"">
           <a href="#" class="nav-link" >Регистрация</a>
-          {% if user.is_authenticated %}
-            <li class="nav-item dropdown">
-            </li>
-          {% else %}
-            <li class="nav-item">
-              <a href="{% url 'users.login' %}">Вход</a>
-            </li>
-          {% endif %}
         </li>
-        <li clacc="nav-item">
-          <a href="#" class="nav-link" tada-togle="dropdown
-          dropdown-toggle">Профиль</a>
-        </li>
-        <!--li clacc="nav-item">
-          <a href="#" class="nav-link" tada-togle="dropdown-item">Вход</a>
-        </li -->
+        {% if user.is_authenticated %}
+          <li class="nav-item dropdown">
+            <li clacc="nav-item">
+              <a href="{% url 'account:profile' %}" class="nav-link
+              dropdown-toggle" tada-togle="dropdown" role="button"
+                 aria-haspopup="true" aria-expanded="false">Профиль</a>
+              <div class="dropdown-memu">
+                <a class="dropdown-item" href="{% url 'account:profile' %}">
+                  Мои объявления
+                </a>
+                <a class="dropdown-item" href="{% url 'account:logout' %}">
+                  Выход
+                </a>
+              </div>
+            </li>
+          </li>
+        {% else %}
+          <li class="nav-item">
+            <a href="{% url 'account:login' %}">Вход</a>
+          </li>
+        {% endif %}
         <li clacc="nav-item">
           <a href="#" class="nav-link" tada-togle="dropdown-item">
             Изменить пароль
