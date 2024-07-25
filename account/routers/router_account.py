@@ -1,5 +1,7 @@
 from django.urls import path, re_path
 
+from account.contribute.changes_profile.interface_forPassword import \
+        APasswordChangeView
 from account.contribute.vews.other_page import other_page, account_other_page
 from account.contribute.vews.template_authorizator import \
         get_form_authorization
@@ -15,6 +17,7 @@ urlpatterns = [
         re_path(r'^form/$', get_form_authorization, name='form'),
         re_path(r'profile/$', profile, name='profile'),
         re_path(r'^profile/change/$', ChangeInfoView.as_view(), name='profile_change'),
+        re_path(r'^password/change/$', APasswordChangeView.as_view(), name='password_change'),
         re_path(r'^login/$', ALoginView.as_view(), name="login"), #template_name='users/login.html'
         re_path(r'^logout/$', ALogoutView.as_view(), name='logout'),
         re_path(r'^registration/$', get_registration, name='registration'),
