@@ -6,7 +6,7 @@ from account.contribute.vews.template_authorizator import \
 from account.contribute.vews.template_done import RegisterDoneView
 from account.contribute.vews.template_registretor import get_registration
 
-from account.contribute.changes_profile.form_forUser_data import \
+from account.contribute.changes_profile.intarface_forUser_data import \
         ChangeUserInfoForm, ChangeInfoView
 from account.views import ALoginView, profile, ALogoutView
 
