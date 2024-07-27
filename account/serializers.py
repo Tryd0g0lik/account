@@ -44,8 +44,12 @@ class Users_serializers(serializers.ModelSerializer):
             value = datetime.datetime.now()
         return value
     
+    # `self.context['request'].data.get('email')` можно получить данные. Вставить имя формы
+    # ведь post с обоих форм идет на один урл.
+    # авторизация
     def create(self, validated_data):
         validated_data['date_joined'] = datetime.now()
+        validated_data['is_active'] = False
         return super().create(validated_data)
     
     # https://www.django-rest-framework.org/api-guide/serializers/#saving-instances

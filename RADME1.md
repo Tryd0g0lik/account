@@ -1,3 +1,75 @@
+# The Account
+This is module from the `Django>=4.2.14`.\
+This module will provide posting of message. \
+I only provide (backend) accaunt's:
+ - registration;
+ - authorization;
+ - activation from all module.
+
+## Create and setting of project
+### Of the cmd/PowerShell/bash
+```text
+django-admin startproject project 
+```
+When we will install the project, then will set up the db.\
+```python
+# settings.py
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': str(os.getenv('POSTGRES_DB', 'portfolio')),
+        'USER': str(os.getenv('POSTGRES_USER', 'postgres')),
+        'PASSWORD': str(os.getenv('POSTGRES_PASSWORD', '123')),
+        'HOST': str(os.getenv('POSTGRES_HOST', 'localhost')),
+        'PORT': str(os.getenv('POSTGRES_PORT', '5432')),
+    }
+}
+# then
+LANGUAGE_CODE = 'ru'
+
+TIME_ZONE = 'Asia/Novosibirsk'
+
+```
+## Make the app Account
+```text
+manage.py account
+```
+
+```python
+# app.py
+class AccountConfig(AppConfig):
+    default_auto_field = 'django.db.models.BigAutoField'
+    name = 'account'
+    verbose_name="Профиль пользователя"
+
+# then
+# settings.py
+INSTALLED_APPS = [
+    # ...
+    'account'
+]
+```
+
+### Templates
+This's `account/templates/layout` a basis template. \
+This's `account/templates/users` page of site \ 
+This's `account/static/account/css` styles of page \ 
+This's `account/static/account/javascripts` interfaces of page. \
+In basis template was inserted the bootstrap. 
+
+#### Blocks
+In basis template has blocks:
+ - `bootstrap_css` 
+ - `bootstrap_javascript`
+ - `block title`;
+ - `static`
+and other.
+
+## Main page and navigate/references
+
+
+
+# wor a work
 https://habr.com/ru/articles/538040/
 Настройка аутентификации JWT в новом проекте Django
 - Настройка аутентификации JWT

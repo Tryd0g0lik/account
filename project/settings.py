@@ -17,18 +17,21 @@ import dotenv
 dotenv.load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
-
+APP_SERVER_PORT = str(os.getenv('APP_SERVER_PORT'))
+APP_SERVER_HOST = (os.getenv('APP_SERVER_HOST'))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = str(os.getenv('DJ_SECRET_KEY'))
+# SECRET_KEY = "django-insecure-usvlzu!%!41#0bt%%)3hf3@!d))zlz4zwt#prbceqscr9tfqsw"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '127.0.0.1'
+]
 
 
 # Application definition
@@ -37,6 +40,7 @@ INSTALLED_APPS = [
     'webpack_loader',
     'corsheaders',
     'rest_framework',
+    'bootstrap4',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -84,7 +88,7 @@ WSGI_APPLICATION = 'project.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': str(os.getenv('POSTGRES_DB', 'account')),
+        'NAME': str(os.getenv('POSTGRES_DB', 'portfolio')),
         'USER': str(os.getenv('POSTGRES_USER', 'postgres')),
         'PASSWORD': str(os.getenv('POSTGRES_PASSWORD', '123')),
         'HOST': str(os.getenv('POSTGRES_HOST', 'localhost')),
@@ -92,7 +96,7 @@ DATABASES = {
     }
 }
 
-
+LANGUAGE_CODE = 'ru'
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
@@ -135,6 +139,7 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 DEFAULT_CHARSET = 'utf-8'
 
+AUTH_USER_MODEL = 'account.UsersRegistrModel'
 # WEBPACK
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'account'),
@@ -164,24 +169,42 @@ if not DEBUG:
         'STATS_FILE': os.path.join(BASE_DIR, 'webpack-stats-prod.json')
     })
 
-# самописная авторизация
-# https://docs.djangoproject.com/en/5.0/ref/settings/#auth-user-model
-AUTH_USER_MODEL = 'account.UsersRegistrModel'
-# https://docs.djangoproject.com/en/5.0/ref/settings/#logout-redirect-url
-LOGOUT_REDIRECT_URL = os.getenv('APP_LOGIN_REDIRECT_URL', '')
-
-AUTHENTICATION_BACKENDS = [
-    'account.interfaces.CustomAuthBackend',
-]
-PASSWORD_HASHERS = [
-    'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
-    'django.contrib.auth.hashers.PBKDF2PasswordHasher',
-    'django.contrib.auth.hashers.Argon2PasswordHasher',
-]
 
 
-# куда переходим после не успешной авторизации
-LOGIN_URL = os.getenv('APP_LOGIN_URL', '')
 
-# куда переходим после авторизации
-LOGIN_REDIRECT_URL = os.getenv('APP_LOGIN_REDIRECT_URL', '') # 'account:index'
+#
+# EMAIL LETTER
+
+# EMAIL_BACKEND in down for a product
+# https://docs.djangoproject.com/en/4.2/topics/email/#smtp-backend
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+# EMAIL_BACKEND in down for a development
+# https://docs.djangoproject.com/en/4.2/topics/email/#console-backend
+# EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
+# https://docs.djangoproject.com/en/4.2/ref/settings/#default-from-email
+# DEFAULT_FROM_EMAIL
+
+# https://docs.djangoproject.com/en/4.2/ref/settings/#std-setting-EMAIL_HOST
+# EMAIL_HOST = 'localhost'
+
+# https://docs.djangoproject.com/en/4.2/ref/settings/#std-setting-EMAIL_PORT
+EMAIL_PORT = 1025 # APP_SERVER_PORT
+
+# https://docs.djangoproject.com/en/4.2/ref/settings/#email-host-user
+EMAIL_HOST_USER = 'root'
+
+# https://docs.djangoproject.com/en/4.2/ref/settings/#email-host-password
+EMAIL_HOST_PASSWORD = '123'
+
+# https://docs.djangoproject.com/en/4.2/ref/settings/#email-use-ssl
+# EMAIL_USE_SSL = True
+
+# https://docs.djangoproject.com/en/4.2/ref/settings/#email-use-tls
+EMAIL_USE_TLS = True
+
+# https://docs.djangoproject.com/en/4.2/ref/settings/#email-timeout
+EMAIL_TIMEOUT = 60
+
+# https://docs.djangoproject.com/en/4.2/ref/settings/#std-setting-EMAIL_USE_LOCALTIME
+EMAIL_USE_LOCALTIME = True

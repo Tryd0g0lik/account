@@ -38,6 +38,9 @@
       ],
       "@Postman": [
         "src/scripts/oop/Postman/index.ts"
+      ],
+      "@FieldsOfForm": [
+        "src/scripts/functions/fieldsOfForm.ts"
       ]
       // "@Interfaces": [
       //   "src/interface.ts"

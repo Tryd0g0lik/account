@@ -21,13 +21,12 @@ def decorators_min_length_validators(fun: object):
         fun(kwargs.text)
     except AttributeError:
         print(message)
-     
-    if ('quantity' not in kwargs.keys() or \
+ 
+    if ('quantity' not in kwargs.keys() or
         type(kwargs.quantity) is not int) or \
-      (len(kwargs.text) > kwargs.quantity):
+      len(kwargs.text) > kwargs.quantity:
 
       raise ValidationError('%(value) contains invalid length. \
-      Min length is 3 symbols',
-      params={'value': kwargs.text})
+      Min length is 3 symbols', params={'value': kwargs.text})
     return True
   return wrapper

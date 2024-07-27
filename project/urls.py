@@ -16,12 +16,22 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from account.contribute.vews.other_page import other_page
+from account.contribute.vews.template_about import get_about_page
+from account.contribute.vews.template_index import get_index_page
 from account.routers import router_account
 from .rest_routers import router
 
-# app_name = 'account'
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('account/', include(router_account.urlpatterns)),
+    # Note !!!: Here a name 'accounts/' is by accord of django
+    path('accounts/', include((router_account.urlpatterns, 'accounts'),
+                              namespace='accounts')),
     path('api/v1/', include(router.urls)),
+    path('', get_index_page, name='index'),
+    path('<str:page>/', other_page, name='other'),
+    path('about/', get_about_page,  name="about"),
 ]
+
+# if settings.DEBUG:
+#     urlpatterns.append(path('static/<path:path>', never_cache(serve)))

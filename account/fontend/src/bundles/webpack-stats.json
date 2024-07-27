@@ -5,18 +5,28 @@
       "name": "../css/style.css",
       "path": "E:\\OpenServer\\domains\\t-electroniks\\account\\static\\account\\css\\style.css"
     },
+<<<<<<< HEAD
 
     "main-main-7fa4262b09731fa20ee3.js": {
       "name": "main-main-7fa4262b09731fa20ee3.js",
       "path": "E:\\OpenServer\\domains\\t-electroniks\\account\\static\\account\\javascripts\\main-main-7fa4262b09731fa20ee3.js"
 
+=======
+    "main-main-76ec912fa24aaad0a0a8.js": {
+      "name": "main-main-76ec912fa24aaad0a0a8.js",
+      "path": "E:\\OpenServer\\domains\\t-electroniks\\account\\static\\account\\javascripts\\main-main-76ec912fa24aaad0a0a8.js"
+>>>>>>> 2.2
     }
   },
   "chunks": {
     "main": [
       "../css/style.css",
+<<<<<<< HEAD
       "main-main-7fa4262b09731fa20ee3.js"
 
+=======
+      "main-main-76ec912fa24aaad0a0a8.js"
+>>>>>>> 2.2
     ]
   }
 }

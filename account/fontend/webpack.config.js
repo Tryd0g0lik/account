@@ -150,6 +150,7 @@ module.exports = {
     ],
 
     alias: {
+      '@FieldsOfForm': path.resolve(__dirname, 'src/scripts/functions/fieldsOfForm.ts'),
       '@cookies': path.resolve(__dirname, 'src/scripts/cookies.ts'),
       '@interfaces': path.resolve(__dirname, "src/scripts/interfaces.ts"),
       '@Postman': path.resolve(__dirname, 'src/scripts/oop/Postman'),

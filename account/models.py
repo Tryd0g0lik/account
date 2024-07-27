@@ -1,4 +1,6 @@
-from django.contrib.auth.models import User, AbstractUser
+from django.contrib.auth.models import AbstractUser
+from django.db import models
+
 from account.dacorators import decorators_min_length_validators
 from .validators import min_length_validators
 
@@ -11,13 +13,21 @@ def update_min_length_validators(value: str):
   return response
 
 
-
 class UsersRegistrModel(AbstractUser):
   '''
-  TODO:
   :param password: do not has a '"%}][{ and more symbol \
    which not has to the unicode.
   '''
-  
-  # class Meta:
-  #   proxy = True
+  is_activated = models.BooleanField(
+    default=True,
+    verbose_name='Прошел активацию'
+    )
+  send_messages = models.BooleanField(
+    default=True,
+    verbose_name='Слать оповещение'
+    )
+
+  class Meta(AbstractUser.Meta):
+    indexes = [
+      models.Index(fields=["is_activated"], name="activated_indx")
+    ]
