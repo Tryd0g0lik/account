@@ -23,6 +23,7 @@ from account.contribute.vews.other_page import other_page, account_other_page
 from account.contribute.vews.template_about import get_about_page
 from account.contribute.vews.template_basis import get_basis_page
 from account.contribute.vews.template_index import get_index_page
+from account.contribute.vews_new_users.controler_activate import user_activate
 from account.routers import router_account
 from . import settings
 from .rest_routers import router
@@ -32,9 +33,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     # Note !!!: Here a name 'accounts/' is by accord of django
     path('accounts/', include((router_account.urlpatterns, 'accounts'),
-                             namespace='accounts')),
+                              namespace='accounts')),
     path('api/v1/', include(router.urls)),
-    
     path('', get_index_page, name='index'),
     path('<str:page>/', other_page, name='other'),
     path('about/', get_about_page,  name="about"),

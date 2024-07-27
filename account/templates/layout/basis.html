@@ -36,7 +36,7 @@
           </a>
         </li>
         <li clacc="nav-item">
-          <a href="#" class="nav-link" >Регистрация</a>
+          <a href="{% url 'accounts:register:register' %}" class="nav-link" >Регистрация</a>
         </li>
         {% if user.is_authenticated %}
           <li class="nav-item dropdown">
@@ -55,6 +55,9 @@
                 </a>
                 <a href="{% url 'accounts:password_change' %}" class="dropdown-item">
                   Изменить пароль
+                </a>
+                <a href="{% url 'accounts:profile_delete' %}" class="dropdown-item">
+                  Удалить
                 </a>
                 <a class="dropdown-item" href="{% url 'accounts:logout' %}">
                   Выход

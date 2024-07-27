@@ -17,19 +17,21 @@ import dotenv
 dotenv.load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
-
+APP_SERVER_PORT = str(os.getenv('APP_SERVER_PORT'))
+APP_SERVER_HOST = (os.getenv('APP_SERVER_HOST'))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = str(os.getenv('DJ_SECRET_KEY'))
-SECRET_KEY = "django-insecure-usvlzu!%!41#0bt%%)3hf3@!d))zlz4zwt#prbceqscr9tfqsw"
+SECRET_KEY = str(os.getenv('DJ_SECRET_KEY'))
+# SECRET_KEY = "django-insecure-usvlzu!%!41#0bt%%)3hf3@!d))zlz4zwt#prbceqscr9tfqsw"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '127.0.0.1'
+]
 
 
 # Application definition
@@ -165,3 +167,40 @@ if not DEBUG:
         'BUNDLE_DIR_NAME': 'dist/',
         'STATS_FILE': os.path.join(BASE_DIR, 'webpack-stats-prod.json')
     })
+
+#
+# EMAIL LETTER
+
+# EMAIL_BACKEND in down for a product
+# https://docs.djangoproject.com/en/4.2/topics/email/#smtp-backend
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+# EMAIL_BACKEND in down for a development
+# https://docs.djangoproject.com/en/4.2/topics/email/#console-backend
+# EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
+# https://docs.djangoproject.com/en/4.2/ref/settings/#default-from-email
+# DEFAULT_FROM_EMAIL
+
+# https://docs.djangoproject.com/en/4.2/ref/settings/#std-setting-EMAIL_HOST
+# EMAIL_HOST = 'localhost'
+
+# https://docs.djangoproject.com/en/4.2/ref/settings/#std-setting-EMAIL_PORT
+EMAIL_PORT = 1025 # APP_SERVER_PORT
+
+# https://docs.djangoproject.com/en/4.2/ref/settings/#email-host-user
+EMAIL_HOST_USER = 'root'
+
+# https://docs.djangoproject.com/en/4.2/ref/settings/#email-host-password
+EMAIL_HOST_PASSWORD = '123'
+
+# https://docs.djangoproject.com/en/4.2/ref/settings/#email-use-ssl
+# EMAIL_USE_SSL = True
+
+# https://docs.djangoproject.com/en/4.2/ref/settings/#email-use-tls
+EMAIL_USE_TLS = True
+
+# https://docs.djangoproject.com/en/4.2/ref/settings/#email-timeout
+EMAIL_TIMEOUT = 60
+
+# https://docs.djangoproject.com/en/4.2/ref/settings/#std-setting-EMAIL_USE_LOCALTIME
+EMAIL_USE_LOCALTIME = True
