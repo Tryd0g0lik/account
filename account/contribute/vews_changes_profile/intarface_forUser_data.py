@@ -14,7 +14,7 @@ class ChangeUserInfoForm(forms.ModelForm):
     required=True,
     label="Адрес электронной почты"
   )
-  
+
   class Meta:
     model = UsersRegistrModel
     fields = ('username', 'email', 'first_name', 'last_name', 'send_messages')
@@ -28,13 +28,12 @@ class ChangeInfoView(
   form_class = ChangeUserInfoForm
   success_url = reverse_lazy('accounts:profile')
   success_message = 'Данные пользователя изменены'
-  
+
   def setup(self, request, *args, **kwargs):
     self.user_id = request.user.pk
     return super().setup(request, *args, **kwargs)
-  
+
   def get_object(self, queryset=None):
     if not queryset:
       queryset = self.get_queryset()
     return get_object_or_404(queryset, pk=self.user_id)
-    

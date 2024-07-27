@@ -1,16 +1,14 @@
 from django.apps import AppConfig
 from django.dispatch import Signal
 from account.contribute.utilites import send_activation_notification
-from datetime import datetime
+
 class UsersConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
     name = 'account'
     verbose_name="Профиль пользователя"
-    
-    
-# отправка писем при регистрации
 
-user_registered = Signal( use_caching=False)
+# отправка писем при регистрации
+user_registered = Signal(use_caching=False)
 def user_registered_dispatcher(sender, **kwargs):
 
     send_activation_notification(kwargs['instance'])

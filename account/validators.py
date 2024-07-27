@@ -23,10 +23,9 @@ def min_length_validators(value: str):
   '''
   if type(value) is not str:
     raise ValidationError('%(value) contains invalid type synbols',
-      params={'value': value})
+                          params={'value': value})
 
   if len(value) < 3:
     raise ValidationError('%(value) contains invalid length. \
-Min length is 3 symbols',
-                          params={'value': value})
+Min length is 3 symbols', params={'value': value})
   return True

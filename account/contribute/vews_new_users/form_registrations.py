@@ -32,7 +32,6 @@ class RegisterUserForm(forms.ModelForm):
 совпадают', code='password_mismatch')}
       raise ValidationError(errors)
 
-
   def save(self, commit=True):
     user = super().save(commit=False)
     user.set_password(self.cleaned_data['password1'])
@@ -40,8 +39,8 @@ class RegisterUserForm(forms.ModelForm):
     user.is_activated = False
     if commit:
       user.save()
-    '''user_registered.send  прочитать instance?? должны быть данные переданные '''
-    # user_registered.send(RegisterUserForm, instance=user)
+    '''user_registered.send  прочитать instance?? должны
+быть данные переданные '''
     user_registered.send(RegisterUserForm, instance=user)
     return user
   

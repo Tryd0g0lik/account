@@ -15,9 +15,9 @@ class CustomUserModelBackend(ModelBackend):
 
       # Checking from the account.models
       user_email_list = \
-UsersRegistrModel.objects.filter(email__exact=useremail)
+        UsersRegistrModel.objects.filter(email__exact=useremail)
       wser_passw_list = \
-UsersRegistrModel.objects.filter(password__exact=userpassword)
+        UsersRegistrModel.objects.filter(password__exact=userpassword)
 
       try:
         if len(list(user_email_list)) > 0 and len(list(wser_passw_list)) > 0:
@@ -29,8 +29,8 @@ UsersRegistrModel.objects.filter(password__exact=userpassword)
 
         if len(list(user_email_list) > 0) and len(list(user_passw_list) > 0):
           return user_email_list[0]
-        if len(list(user_email_list) > 0) \
-          and user_email_list[0].check_password(userpassword):
+        if len(list(user_email_list) > 0) and \
+          user_email_list[0].check_password(userpassword):
           return user_email_list[0]
 
       except Exception as er:

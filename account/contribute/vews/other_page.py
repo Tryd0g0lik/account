@@ -13,8 +13,7 @@ def account_other_page(request, page):
 
 def other_page(request, page):
   try:
-    template = get_template(page +  '.html')
+    template = get_template(page + '.html')
   except TemplateDoesNotExist:
     raise Http404
   return HttpResponse(template.render(request=request))
-    

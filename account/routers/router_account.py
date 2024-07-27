@@ -1,21 +1,15 @@
 from django.urls import path, re_path, include
-
 from account.contribute.controler_delete import DeleteUserView
 from account.contribute.vews_changes_profile.interface_forPassword import \
         APasswordChangeView
-from account.contribute.vews_new_users.controler_registrations import \
-        RegisterUserView, RegisterDoneView
-from account.contribute.vews.other_page import other_page, account_other_page
+from account.contribute.vews.other_page import account_other_page
 from account.contribute.vews.template_authorizator import \
         get_form_authorization
 from account.contribute.vews.template_registretor import get_registration
-
 from account.contribute.vews_changes_profile.intarface_forUser_data import \
-        ChangeUserInfoForm, ChangeInfoView
+        ChangeInfoView
 from account.views import ALoginView, profile, ALogoutView
-from account.contribute.vews_new_users.controler_activate import user_activate
 from account.routers import router_register
-
 
 urlpatterns = [
         path('', get_form_authorization, name='accounts'),

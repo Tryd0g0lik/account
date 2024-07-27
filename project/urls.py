@@ -15,17 +15,11 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include, re_path
-from django.views.decorators.cache import never_cache
-from django.contrib.staticfiles.views import serve
-
-from account.contribute.vews.other_page import other_page, account_other_page
+from django.urls import path, include
+from account.contribute.vews.other_page import other_page
 from account.contribute.vews.template_about import get_about_page
-from account.contribute.vews.template_basis import get_basis_page
 from account.contribute.vews.template_index import get_index_page
-from account.contribute.vews_new_users.controler_activate import user_activate
 from account.routers import router_account
-from . import settings
 from .rest_routers import router
 
 # 'admin/' Here a page of superadmin
@@ -38,9 +32,7 @@ urlpatterns = [
     path('', get_index_page, name='index'),
     path('<str:page>/', other_page, name='other'),
     path('about/', get_about_page,  name="about"),
-    
-    # re_path(r'*', get_basis_page, name="main"),
 ]
-#
+
 # if settings.DEBUG:
 #     urlpatterns.append(path('static/<path:path>', never_cache(serve)))

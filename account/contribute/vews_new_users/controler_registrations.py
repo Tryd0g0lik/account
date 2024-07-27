@@ -1,7 +1,8 @@
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import CreateView
 from django.urls import reverse_lazy
-from account.contribute.vews_new_users.form_registrations import RegisterUserForm
+from account.contribute.vews_new_users.form_registrations import \
+  RegisterUserForm
 from account.models import UsersRegistrModel
 
 

@@ -12,6 +12,4 @@ urlpatterns = [
         path('', RegisterUserView.as_view(), name='register'),
         re_path(r'^done/', RegisterDoneView.as_view(),
                 name='register_done'),
-        
-        
 ]

@@ -36,4 +36,3 @@ class UsersAccountViews(ModelViewSet):
             return Response(status=status.HTTP_204_NO_CONTENT)
         except UsersAccountViews.DoesNotExist:
             return Response(status=status.HTTP_404_NOT_FOUND)
-

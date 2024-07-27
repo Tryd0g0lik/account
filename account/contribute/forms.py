@@ -1,6 +1,6 @@
 from django import forms
 from django.core.exceptions import ValidationError
-from django.core.validators import MinValueValidator, MaxLengthValidator, \
+from django.core.validators import MaxLengthValidator, \
     MinLengthValidator, EmailValidator
 from account.models import UsersRegistrModel
 from django.utils.translation import gettext_lazy as _
@@ -24,11 +24,14 @@ class UsersRegistrationForm(forms.ModelForm):
     password2 = forms.CharField(label='Password configuration',
                                 widget=forms.PasswordInput,
                                 error_messages = {
-                                    "min_length": _("Слишком короткий. От 10 символов."),
-                                    "max_length": _("Слишком длинный. До 30 символов.")
+                                    "min_length":
+                                      _("Слишком короткий. От 10 символов."),
+                                    "max_length":
+                                      _("Слишком длинный. До 30 символов.")
                                 },
                                 validators=[
-                                    MaxLengthValidator(30), MinLengthValidator(10)
+                                  MaxLengthValidator(30),
+                                  MinLengthValidator(10)
                                 ])
 
     class Meta:
