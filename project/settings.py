@@ -24,7 +24,6 @@ APP_SERVER_HOST = (os.getenv('APP_SERVER_HOST'))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = str(os.getenv('DJ_SECRET_KEY'))
-# SECRET_KEY = "django-insecure-usvlzu!%!41#0bt%%)3hf3@!d))zlz4zwt#prbceqscr9tfqsw"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -65,7 +64,9 @@ ROOT_URLCONF = 'project.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            os.path.join(BASE_DIR, 'account/templates')
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
